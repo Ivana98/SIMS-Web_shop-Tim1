@@ -9,11 +9,9 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+
 
 
 public class GlavniProzor extends JFrame {
@@ -67,8 +65,25 @@ public class GlavniProzor extends JFrame {
 		add(scrollPane,BorderLayout.CENTER);
 		add(footerPanel,BorderLayout.PAGE_END);
 		
+		//Slika proizvoda
+		ImageIcon icon = new ImageIcon("src/Aplikacija/proizvod.png");
+		Image scaled = icon.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
 		
-		midPanel.remove(instagramBtn);
+		JButton proizvod1 = new JButton("Proizvod 1",new ImageIcon(scaled));
+		JButton proizvod2 = new JButton("Proizvod 2",new ImageIcon(scaled));
+		JButton proizvod3 = new JButton("Proizvod 3",new ImageIcon(scaled));
+		JButton proizvod4 = new JButton("Proizvod 1",new ImageIcon(scaled));
+		JButton proizvod5 = new JButton("Proizvod 2",new ImageIcon(scaled));
+		JButton proizvod6 = new JButton("Proizvod 3",new ImageIcon(scaled));
+	
+		midPanel.add(proizvod1);
+		midPanel.add(proizvod2);
+		midPanel.add(proizvod3);
+		midPanel.add(proizvod4);
+		midPanel.add(proizvod5);
+		midPanel.add(proizvod6);
+		
+		//midPanel.remove(instagramBtn);
 		setVisible(true);
 	}
 	
