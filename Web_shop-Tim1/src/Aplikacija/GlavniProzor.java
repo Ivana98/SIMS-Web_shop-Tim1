@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.ScrollPane;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
@@ -18,6 +19,7 @@ public class GlavniProzor extends JFrame {
 	protected JPanel headerPanel;
 	protected JPanel midPanel;
 	protected JPanel footerPanel;
+	protected JScrollPane scrollPane;
 	
 	GlavniProzor() throws IOException{
 		setTitle("Globus Web Shop");
@@ -48,7 +50,7 @@ public class GlavniProzor extends JFrame {
 		footerPanel.add(locationsBtn);
 		
 		//middle panel
-		JScrollPane scrollPane = new JScrollPane(midPanel);
+		scrollPane = new JScrollPane(midPanel);
 	
 		midPanel.setBackground(Color.GRAY);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
