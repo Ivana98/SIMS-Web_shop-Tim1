@@ -1,5 +1,7 @@
 package Aplikacija;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -34,6 +36,12 @@ public class NeregistrovaniKupacProzor extends GlavniProzor {
 		headerPanel.add(search);
 		headerPanel.add(searchBtn);
 		headerPanel.add(cartBtn);
+		
+		registerBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistracijaProzor rp = new RegistracijaProzor();
+			}
+		});
 		
 		setVisible(true);
 	}

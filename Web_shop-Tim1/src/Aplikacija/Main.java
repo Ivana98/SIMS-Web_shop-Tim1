@@ -6,10 +6,10 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		//GlavniProzor gp = new GlavniProzor();
-		//NeregistrovaniKupacProzor nkp = new NeregistrovaniKupacProzor();
+		NeregistrovaniKupacProzor nkp = new NeregistrovaniKupacProzor();
 		//RegistrovaniKupacProzor rkp = new RegistrovaniKupacProzor();
-	//	MenadzerProzor mp = new MenadzerProzor();
-		AdminProzor ap = new AdminProzor();
+		//MenadzerProzor mp = new MenadzerProzor();
+		//AdminProzor ap = new AdminProzor();
 	}
 
 }
