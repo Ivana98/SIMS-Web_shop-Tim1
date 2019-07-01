@@ -5,11 +5,14 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.ScrollPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -85,7 +88,46 @@ public class GlavniProzor extends JFrame {
 		midPanel.add(proizvod5);
 		midPanel.add(proizvod6);
 		
-		//midPanel.remove(instagramBtn);
+		facebookBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "Otvara se nasa facebook stranica u pretrazivacu.", 
+						"Prozor u izradi", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+	    });
+		
+		instagramBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "Otvara se nasa instagram stranica u pretrazivacu.", 
+						"Prozor u izradi", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+	    });
+		
+		mailBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "Otvara se prozor za slanje mejla sa popunjenom nasom mejl adresom u polju primaoca.", 
+						"Prozor u izradi", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+	    });
+		
+		locationsBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "Otvara se prozor sa informacijama o nasim prodajnim mestima.", 
+						"Prozor u izradi", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+	    });
+		
 		setVisible(true);
 	}
 	

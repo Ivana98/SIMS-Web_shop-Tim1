@@ -1,9 +1,12 @@
 package Aplikacija;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class RegistrovaniKupacProzor extends GlavniProzor{
@@ -27,6 +30,34 @@ public class RegistrovaniKupacProzor extends GlavniProzor{
 		headerPanel.add(searchField);
 		headerPanel.add(searchBtn);
 		headerPanel.add(logoutBtn);
+		
+		cartBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				KorpaProzor kp = new KorpaProzor();
+			}
+			
+	    });
+		
+		wishBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ListaZeljaProzor lz = new ListaZeljaProzor();
+			}
+			
+	    });
+		
+		historyBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "Ovde ce biti prikazana tabela porudzbina sa datumima kada su napravljene.", 
+						"Prozor u izradi", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+	    });
 		
 		setVisible(true);
 	}

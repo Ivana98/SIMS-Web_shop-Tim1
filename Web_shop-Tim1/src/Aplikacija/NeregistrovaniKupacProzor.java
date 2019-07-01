@@ -26,7 +26,6 @@ public class NeregistrovaniKupacProzor extends GlavniProzor {
 		JLabel usernameLabel = new JLabel("Username: ");
 		JLabel passwordLabel = new JLabel("Password: ");
 		
-		
 		headerPanel.add(usernameLabel);
 		headerPanel.add(usernameField);
 		headerPanel.add(passwordLabel);
@@ -38,10 +37,20 @@ public class NeregistrovaniKupacProzor extends GlavniProzor {
 		headerPanel.add(cartBtn);
 		
 		registerBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				RegistracijaProzor rp = new RegistracijaProzor();
 			}
 		});
+		
+		cartBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				KorpaProzor kp = new KorpaProzor();
+			}
+			
+	    });
 		
 		setVisible(true);
 	}
