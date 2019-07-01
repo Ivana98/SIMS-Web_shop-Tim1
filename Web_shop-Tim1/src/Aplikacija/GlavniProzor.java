@@ -8,6 +8,7 @@ import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +16,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import POJO.Kolicina;
+import POJO.Prodavnica;
+import POJO.Proizvod;
 
 
 
@@ -74,14 +79,36 @@ public class GlavniProzor extends JFrame {
 		ImageIcon icon = new ImageIcon("src/Aplikacija/proizvod.png");
 		Image scaled = icon.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
 		
-		JButton proizvod1 = new JButton("Proizvod 1",new ImageIcon(scaled));
-		JButton proizvod2 = new JButton("Proizvod 2",new ImageIcon(scaled));
-		JButton proizvod3 = new JButton("Proizvod 3",new ImageIcon(scaled));
-		JButton proizvod4 = new JButton("Proizvod 1",new ImageIcon(scaled));
-		JButton proizvod5 = new JButton("Proizvod 2",new ImageIcon(scaled));
-		JButton proizvod6 = new JButton("Proizvod 3",new ImageIcon(scaled));
-	
-		midPanel.add(proizvod1);
+		//dodati proizvodi radi testiranja
+		ArrayList<Kolicina>proizvodi = new ArrayList<Kolicina>();
+		Aplikacija.getInstance().getProdavnica().add(new Prodavnica(1, "Titanik", "Cara Lazara1", "01112",proizvodi));
+		proizvodi.add(new Kolicina(20, Aplikacija.getInstance().prodavnica.get(0), 
+				new Proizvod("Stolica","Drvena","src/Aplikacija/Stolica.jpg")));
+		proizvodi.add(new Kolicina(20, Aplikacija.getInstance().prodavnica.get(0), 
+				new Proizvod("Sto","Drven","src/Aplikacija/sto.jpg")));
+		proizvodi.add(new Kolicina(20, Aplikacija.getInstance().prodavnica.get(0), 
+				new Proizvod("Pivo","Drven","src/Aplikacija/pivo.jpg")));
+		Aplikacija.getInstance().prodavnica.get(0).setProizvodi(proizvodi);
+		
+		int brojProdavnica = Aplikacija.getInstance().getProdavnica().size();
+		for(int i = 0;i<brojProdavnica;i++)
+			for(int j = 0;j<Aplikacija.getInstance().getProdavnica().get(i).getProizvodi().size();j++)
+				{
+					ImageIcon icon1 = new ImageIcon(Aplikacija.getInstance().prodavnica.get(i).getProizvodi().get(j).getProizvod().getSlikaLokacija());
+					Image scaled1 = icon1.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+					
+					JButton proizvod0 = new JButton(Aplikacija.getInstance().prodavnica.get(i).getProizvodi().get(j).getProizvod().getNaziv(),new ImageIcon(scaled1));
+					
+					midPanel.add(proizvod0);
+				}
+		
+		//ova dugmad nisu proizvodi i time nisu obuhvaceni search-om
+		JButton proizvod2 = new JButton("Nista 2",new ImageIcon(scaled));
+		JButton proizvod3 = new JButton("Nista 3",new ImageIcon(scaled));
+		JButton proizvod4 = new JButton("Nista 1",new ImageIcon(scaled));
+		JButton proizvod5 = new JButton("Nista 2",new ImageIcon(scaled));
+		JButton proizvod6 = new JButton("Nista 3",new ImageIcon(scaled));
+		
 		midPanel.add(proizvod2);
 		midPanel.add(proizvod3);
 		midPanel.add(proizvod4);

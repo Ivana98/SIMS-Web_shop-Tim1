@@ -1,9 +1,11 @@
 package Aplikacija;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,6 +42,14 @@ public class RegistrovaniKupacProzor extends GlavniProzor{
 			
 	    });
 		
+		searchBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String trazi = searchField.getText();
+				trazenje(trazi);
+			}
+		});
+		
 		wishBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -60,6 +70,28 @@ public class RegistrovaniKupacProzor extends GlavniProzor{
 	    });
 		
 		setVisible(true);
+	}
+	//metoda za trazenje proizvoda
+	public void trazenje(String trazi)
+	{
+		midPanel.removeAll();
+		
+		int brojProdavnica = Aplikacija.getInstance().getProdavnica().size();
+		for(int i = 0;i<brojProdavnica;i++)
+			for(int j = 0;j<Aplikacija.getInstance().getProdavnica().get(i).getProizvodi().size();j++)
+				{
+					if(Aplikacija.getInstance().prodavnica.get(i).getProizvodi().get(j).getProizvod().getNaziv().toLowerCase().contains(trazi.toLowerCase())) {
+						ImageIcon icon1 = new ImageIcon(Aplikacija.getInstance().prodavnica.get(i).getProizvodi().get(j).getProizvod().getSlikaLokacija());
+						Image scaled1 = icon1.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+						
+						JButton proizvod0 = new JButton(Aplikacija.getInstance().prodavnica.get(i).getProizvodi().get(j).getProizvod().getNaziv(),new ImageIcon(scaled1));
+						
+						midPanel.add(proizvod0);
+					}
+				}
+		midPanel.repaint();
+		midPanel.revalidate();
+		
 	}
 
 }
