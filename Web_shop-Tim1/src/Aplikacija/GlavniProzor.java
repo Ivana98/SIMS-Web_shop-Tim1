@@ -67,6 +67,18 @@ public class GlavniProzor extends JFrame {
 		GridLayout glayout = new GridLayout(3,2);
 		midPanel.setLayout(glayout);
 		
+		//pravljenje primera
+		ArrayList<String>nazivi = new ArrayList<String>();
+		midPanel.removeAll();
+		for(int j = 0;j<Aplikacija.getInstance().getProizvodi().size();j++)
+			{
+				if(nazivi.contains(Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getNaziv().toLowerCase()))
+					continue;
+				nazivi.add(Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getNaziv().toLowerCase());
+				dodavanjeDugmetaUMiddlePanelu(j);
+			}
+		midPanel.repaint();
+		midPanel.revalidate();
 		
 		//dodavanje na glavni panel
 		BorderLayout layout = new BorderLayout();
@@ -79,28 +91,7 @@ public class GlavniProzor extends JFrame {
 		ImageIcon icon = new ImageIcon("src/Aplikacija/proizvod.png");
 		Image scaled = icon.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
 		
-		//dodati proizvodi radi testiranja
-		ArrayList<Kolicina>proizvodi = new ArrayList<Kolicina>();
-		Aplikacija.getInstance().getProdavnica().add(new Prodavnica(1, "Titanik", "Cara Lazara1", "01112",proizvodi));
-		proizvodi.add(new Kolicina(20, Aplikacija.getInstance().prodavnica.get(0), 
-				new Proizvod("Stolica","Drvena","src/Aplikacija/Stolica.jpg")));
-		proizvodi.add(new Kolicina(20, Aplikacija.getInstance().prodavnica.get(0), 
-				new Proizvod("Sto","Drven","src/Aplikacija/sto.jpg")));
-		proizvodi.add(new Kolicina(20, Aplikacija.getInstance().prodavnica.get(0), 
-				new Proizvod("Pivo","Drven","src/Aplikacija/pivo.jpg")));
-		Aplikacija.getInstance().prodavnica.get(0).setProizvodi(proizvodi);
 		
-		int brojProdavnica = Aplikacija.getInstance().getProdavnica().size();
-		for(int i = 0;i<brojProdavnica;i++)
-			for(int j = 0;j<Aplikacija.getInstance().getProdavnica().get(i).getProizvodi().size();j++)
-				{
-					ImageIcon icon1 = new ImageIcon(Aplikacija.getInstance().prodavnica.get(i).getProizvodi().get(j).getProizvod().getSlikaLokacija());
-					Image scaled1 = icon1.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
-					
-					JButton proizvod0 = new JButton(Aplikacija.getInstance().prodavnica.get(i).getProizvodi().get(j).getProizvod().getNaziv(),new ImageIcon(scaled1));
-					
-					midPanel.add(proizvod0);
-				}
 		
 		//ova dugmad nisu proizvodi i time nisu obuhvaceni search-om
 		JButton proizvod2 = new JButton("Nista 2",new ImageIcon(scaled));
@@ -157,5 +148,37 @@ public class GlavniProzor extends JFrame {
 		
 		setVisible(true);
 	}
+	
+	//metoda za trazenje proizvoda
+		public void trazenje(String trazi)
+		{
+			midPanel.removeAll();
+			ArrayList<String>nazivi = new ArrayList<String>();
+			
+			int brojProdavnica = Aplikacija.getInstance().getProdavnica().size();
+			for(int j = 0;j<Aplikacija.getInstance().getProizvodi().size();j++)
+				{
+					if(Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getNaziv().toLowerCase().contains(trazi.toLowerCase())) {
+						if(nazivi.contains(Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getNaziv().toLowerCase()))
+							continue;
+						nazivi.add(Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getNaziv().toLowerCase());
+						dodavanjeDugmetaUMiddlePanelu(j);
+						
+					}
+				}
+			midPanel.repaint();
+			midPanel.revalidate();
+			
+		}
+		
+		public void dodavanjeDugmetaUMiddlePanelu(int j)
+		{
+			ImageIcon icon1 = new ImageIcon(Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getSlikaLokacija());
+			Image scaled1 = icon1.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+			
+			JButton proizvod0 = new JButton(Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getNaziv(),new ImageIcon(scaled1));
+				
+			midPanel.add(proizvod0);
+		}
 	
 };

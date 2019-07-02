@@ -1,29 +1,24 @@
 package POJO;
 
-import java.util.ArrayList;
-
 public class Prodavnica {
 	protected int sifraPreduzeca;
 	protected String nazivPreduzeca;
 	protected String adresa;
 	protected String kontakt;
-	protected ArrayList<Kolicina> proizvodi;
 	
 	public Prodavnica() {
 		this.setAdresa("");
 		this.setKontakt("");
 		this.setNazivPreduzeca("");
 		this.setSifraPreduzeca(0);
-		this.setProizvodi(new ArrayList<Kolicina>());
 	}
 	
-	public Prodavnica(int sifraPreduzeca, String nazivPreduzeca, String adresa, String kontakt, ArrayList<Kolicina> proizvodi) {
+	public Prodavnica(int sifraPreduzeca, String nazivPreduzeca, String adresa, String kontakt) {
 		
 		this.setSifraPreduzeca(sifraPreduzeca);
 		this.setNazivPreduzeca(nazivPreduzeca);
 		this.setAdresa(adresa);
 		this.setKontakt(kontakt);
-		this.setProizvodi(proizvodi);
 	}
 	
 	public Prodavnica(Prodavnica p) {
@@ -32,7 +27,6 @@ public class Prodavnica {
 		this.setNazivPreduzeca(p.getNazivPreduzeca());
 		this.setAdresa(p.getAdresa());
 		this.setKontakt(p.getKontakt());
-		this.setProizvodi(p.getProizvodi());
 	}
 	public int getSifraPreduzeca() {
 		return sifraPreduzeca;
@@ -79,15 +73,5 @@ public class Prodavnica {
 	public String toString() {
 		return "";
 	}
-
-	public ArrayList<Kolicina> getProizvodi() {
-		return proizvodi;
-	}
-
-	public void setProizvodi(ArrayList<Kolicina> proizvodi) {
-		this.proizvodi = proizvodi;
-	}
-
-	
 	
 }

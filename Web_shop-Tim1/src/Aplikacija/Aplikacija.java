@@ -1,12 +1,20 @@
 package Aplikacija;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 import POJO.Cenovnik;
+import POJO.Kolicina;
 import POJO.Korisnik;
 import POJO.Kupon;
 import POJO.Prodavnica;
+import POJO.Proizvod;
+import POJO.Registrovan_korisnik;
+import POJO.StavkaCenovnika;
 
 public class Aplikacija {
 	
@@ -19,25 +27,28 @@ public class Aplikacija {
 		return instance;
 	}
 	
+	protected ArrayList<Kolicina>proizvodi;
+	protected ArrayList<StavkaCenovnika>ceneProizvoda;
 	protected ArrayList<Prodavnica> prodavnica ;
 	protected ArrayList<Cenovnik> cenovnik ;
-	protected ArrayList<Korisnik> korisnik ;
-	protected ArrayList<Kupon> kupon;
+	protected ArrayList<Registrovan_korisnik> korisnik ;
 	
-	public Aplikacija(ArrayList<Prodavnica> prodavnica, ArrayList<Cenovnik> cenovnik, ArrayList<Korisnik> korisnik,
-			ArrayList<Kupon> kupon) {
+	public Aplikacija(ArrayList<Prodavnica> prodavnica, ArrayList<Cenovnik> cenovnik, ArrayList<Registrovan_korisnik> korisnik, 
+			ArrayList<Kolicina>proizvodi,ArrayList<StavkaCenovnika>ceneProizvoda) {
 		this.setProdavnica(prodavnica);
 		this.setCenovnik(cenovnik);
 		this.setKorisnik(korisnik);
-		this.setKupon(kupon);
+		this.setProizvodi(proizvodi);
+		this.setCeneProizvoda(ceneProizvoda);
 	}
 	
 	public Aplikacija()
 	{
 		this.setProdavnica(new ArrayList<Prodavnica>());
 		this.setCenovnik(new ArrayList<Cenovnik>());
-		this.setKorisnik(new ArrayList<Korisnik>());
-		this.setKupon(new ArrayList<Kupon>());
+		this.setKorisnik(new ArrayList<Registrovan_korisnik>());
+		this.setProizvodi(new ArrayList<Kolicina>());
+		this.setCeneProizvoda(new ArrayList<StavkaCenovnika>());
 	}
 	
 	public Aplikacija(Aplikacija a)
@@ -45,7 +56,8 @@ public class Aplikacija {
 		this.setProdavnica(a.getProdavnica());
 		this.setCenovnik(a.getCenovnik());
 		this.setKorisnik(a.getKorisnik());
-		this.setKupon(a.getKupon());
+		this.setProizvodi(a.getProizvodi());
+		this.setCeneProizvoda(a.getCeneProizvoda());
 	}
 	
 	@Override
@@ -70,20 +82,12 @@ public class Aplikacija {
 		this.cenovnik = cenovnik;
 	}
 
-	public ArrayList<Korisnik> getKorisnik() {
+	public ArrayList<Registrovan_korisnik> getKorisnik() {
 		return korisnik;
 	}
 
-	public void setKorisnik(ArrayList<Korisnik> korisnik) {
+	public void setKorisnik(ArrayList<Registrovan_korisnik> korisnik) {
 		this.korisnik = korisnik;
-	}
-
-	public ArrayList<Kupon> getKupon() {
-		return kupon;
-	}
-
-	public void setKupon(ArrayList<Kupon> kupon) {
-		this.kupon = kupon;
 	}
 
 	public static void setInstance(Aplikacija instance) {
@@ -93,14 +97,45 @@ public class Aplikacija {
 	
 	public static void main(String args[]) throws IOException
 	{
+		inicijalizacija();
 		//GlavniProzor gp = new GlavniProzor();
 		NeregistrovaniKupacProzor nkp = new NeregistrovaniKupacProzor();
 		//RegistrovaniKupacProzor rkp = new RegistrovaniKupacProzor();
 		//MenadzerProzor mp = new MenadzerProzor();
 		//AdminProzor ap = new AdminProzor();
 	}
+	
+	static void inicijalizacija()
+	{
+		//dodati proizvodi radi testiranja
+		
+		Aplikacija.getInstance().getProdavnica().add(new Prodavnica(1, "Titanik", "Cara Lazara1", "01112"));
+		Aplikacija.getInstance().getProdavnica().add(new Prodavnica(2, "Kraus", "Cara Milosa1", "3339"));
+		
+		Aplikacija.getInstance().getProizvodi().add(new Kolicina(20, Aplikacija.getInstance().prodavnica.get(0), 
+				new Proizvod("Stolica","Drvena","src/Aplikacija/Stolica.jpg")));
+		Aplikacija.getInstance().getProizvodi().add(new Kolicina(20, Aplikacija.getInstance().prodavnica.get(0), 
+						new Proizvod("Sto","Drven","src/Aplikacija/sto.jpg")));
+		Aplikacija.getInstance().getProizvodi().add(new Kolicina(20, Aplikacija.getInstance().prodavnica.get(0), 
+						new Proizvod("Pivo","Drven","src/Aplikacija/pivo.jpg")));
+		Aplikacija.getInstance().getProizvodi().add(new Kolicina(20, Aplikacija.getInstance().prodavnica.get(1), 
+				new Proizvod("Pivo","Drven","src/Aplikacija/pivo.jpg")));
+	}
 
-	
-	
+	public ArrayList<Kolicina> getProizvodi() {
+		return proizvodi;
+	}
+
+	public void setProizvodi(ArrayList<Kolicina> proizvodi) {
+		this.proizvodi = proizvodi;
+	}
+
+	public ArrayList<StavkaCenovnika> getCeneProizvoda() {
+		return ceneProizvoda;
+	}
+
+	public void setCeneProizvoda(ArrayList<StavkaCenovnika> ceneProizvoda) {
+		this.ceneProizvoda = ceneProizvoda;
+	}
 
 }
