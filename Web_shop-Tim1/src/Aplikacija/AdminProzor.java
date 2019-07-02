@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-//sdgsgsg
+
 public class AdminProzor extends GlavniProzor {
 	public AdminProzor() throws IOException {
 		super();
