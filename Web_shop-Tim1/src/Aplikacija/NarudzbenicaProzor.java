@@ -14,6 +14,17 @@ import javax.swing.JTextField;
 
 public class NarudzbenicaProzor extends JFrame{
 
+	protected JLabel imeLabel;
+	protected JLabel prezimeLabel;
+	protected JLabel adresaLabel;
+	protected JLabel telefonLabel;
+	protected JTextField imeField;
+	protected JTextField prezimeField;
+	protected JTextField adresaField;
+	protected JTextField telefonField;
+	protected JComboBox placanjeOpcije;
+	protected JButton poruciBtn;
+	
 	NarudzbenicaProzor(){
 		setTitle("Narudzbenica");
 		setSize(400, 200);
@@ -22,21 +33,21 @@ public class NarudzbenicaProzor extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		// inicijalizacija komponenti prozora
-		JLabel imeLabel = new JLabel("Ime: ");
-	    JLabel prezimeLabel = new JLabel("Prezime: ");
-	    JLabel adresaLabel = new JLabel("Adresa: ");
-	    JLabel telefonLabel = new JLabel("Telefon: ");
+		imeLabel = new JLabel("Ime: ");
+	    prezimeLabel = new JLabel("Prezime: ");
+	    adresaLabel = new JLabel("Adresa: ");
+	    telefonLabel = new JLabel("Telefon: ");
 	    
-	    JTextField imeField = new JTextField(12);
-	    JTextField prezimeField = new JTextField(12);
-	    JTextField adresaField = new JTextField(20);
-	    JTextField telefonField = new JTextField(12);
+	    imeField = new JTextField(12);
+	    prezimeField = new JTextField(12);
+	    adresaField = new JTextField(20);
+	    telefonField = new JTextField(12);
 	    
 	    //opcionalono
 	    String [] placanjeString = {"Pouzecem", "PayPal"};
-	    JComboBox placanjeOpcije = new JComboBox(placanjeString);
+	    placanjeOpcije = new JComboBox(placanjeString);
 	    
-	    JButton poruciBtn = new JButton("Potvrdite Vasu porudzbinu");
+	    poruciBtn = new JButton("Potvrdite Vasu porudzbinu");
 	    
 	    setLayout(new GridBagLayout());
 	    GridBagConstraints gc = new GridBagConstraints();

@@ -13,6 +13,23 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class RegistracijaProzor extends JFrame{
+	protected JLabel imeLabel;
+	protected JLabel prezimeLabel;
+	protected JLabel usernameLabel;
+	protected JLabel adresaLabel;
+	protected JLabel telefonLabel;
+	protected JLabel mailLabel;
+	protected JLabel passwordLabel;
+	protected JLabel passwordConfLabel;
+	protected JTextField imeField;
+	protected JTextField prezimeField;
+	protected JTextField usernameField;
+	protected JTextField adresaField;
+	protected JTextField telefonField;
+	protected JTextField mailField;
+	protected JPasswordField passwordField;
+	protected JPasswordField passwordConField;
+	protected JButton registracijaBtn;
 	
 	RegistracijaProzor(){
 		// inicijalizacija osnovnih parametara prozora za registraciju
@@ -23,28 +40,28 @@ public class RegistracijaProzor extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		// inicijalizacija komponenti prozora
-		JLabel imeLabel = new JLabel("Ime: ");
-	    JLabel prezimeLabel = new JLabel("Prezime: ");
-	    JLabel usernameLabel = new JLabel("Korisnicko ime: ");
-	    JLabel adresaLabel = new JLabel("Adresa: ");
-	    JLabel telefonLabel = new JLabel("Telefon: ");
-	    JLabel mailLabel = new JLabel("E-mail adresa: ");
-	    JLabel passwordLabel = new JLabel("Unesite lozinku: ");
-	    JLabel passwordConfLabel = new JLabel("Potvrdite lozinku: ");
+		imeLabel = new JLabel("Ime: ");
+	    prezimeLabel = new JLabel("Prezime: ");
+	    usernameLabel = new JLabel("Korisnicko ime: ");
+	    adresaLabel = new JLabel("Adresa: ");
+	    telefonLabel = new JLabel("Telefon: ");
+	    mailLabel = new JLabel("E-mail adresa: ");
+	    passwordLabel = new JLabel("Unesite lozinku: ");
+	    passwordConfLabel = new JLabel("Potvrdite lozinku: ");
 	    
 	    //adresa username password telefon mail
 	    //porudz-adresa datum id 
 	    
-	    JTextField imeField = new JTextField(12);
-	    JTextField prezimeField = new JTextField(12);
-	    JTextField usernameField = new JTextField(12);
-	    JTextField adresaField = new JTextField(20);
-	    JTextField telefonField = new JTextField(12);
-	    JTextField mailField = new JTextField(20);
-	    JPasswordField passwordField = new JPasswordField(12);
-	    JPasswordField passwordConField = new JPasswordField(12); //polje za  ponavljanje lozinke
+	    imeField = new JTextField(12);
+	    prezimeField = new JTextField(12);
+	    usernameField = new JTextField(12);
+	    adresaField = new JTextField(20);
+	    telefonField = new JTextField(12);
+	    mailField = new JTextField(20);
+	    passwordField = new JPasswordField(12);
+	    passwordConField = new JPasswordField(12); //polje za  ponavljanje lozinke
 	    
-	    JButton registracijaBtn = new JButton("Registruj se!");
+	    registracijaBtn = new JButton("Registruj se!");
 	    
 	    setLayout(new GridBagLayout());
 	    
