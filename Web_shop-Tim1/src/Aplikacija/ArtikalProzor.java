@@ -41,15 +41,18 @@ public class ArtikalProzor extends JFrame {
 		float cena = broj2;
 		//koji je korisnik
 		Registrovan_korisnik korisnik = new Registrovan_korisnik();
-		int kojiJeKorisnik;
-		for(kojiJeKorisnik = 0;i<Aplikacija.getInstance().getKorisnik().size();i++)
+		
+		int koji = -1;
+		for(int i = 0;i<Aplikacija.getInstance().getKorisnik().size();i++)
 		{
-			if(Aplikacija.getInstance().getKorisnik().get(i).getUsername().toLowerCase().equals(Aplikacija.getInstance().getUsername().toLowerCase()))
+			koji++;
+			if(Aplikacija.getInstance().getKorisnik().get(i).getUsername().equals(Aplikacija.getInstance().getUsername()))
 			{
 				korisnik = Aplikacija.getInstance().getKorisnik().get(i);
 				break;
 			}
 		}
+		final int kojiJeKorisnik = koji;
 		
 		JFrame prozor = new JFrame(proizvod.getNaziv()); // OVDE STAVITE DA SE DODA IME PROZIVODA
 		prozor.setSize(900, 600);

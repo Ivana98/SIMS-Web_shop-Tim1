@@ -144,7 +144,7 @@ public class RegistracijaProzor extends JFrame{
 				// pasvord je nepromenljiv pa moramo prvo da ga pokupimo ovako
 				String password = String.valueOf(passwordField.getPassword());
 				String passwordCon = String.valueOf(passwordConField.getPassword());
-				
+				boolean a = false;
 				// da li vec postoji taj username
 				if (!usernameField.getText().isEmpty()){
 					String username = usernameField.getText();
@@ -152,6 +152,7 @@ public class RegistracijaProzor extends JFrame{
 					{
 						if(username.equals(Aplikacija.getInstance().getKorisnik().get(i).getUsername())) {
 							JOptionPane.showMessageDialog(null, "Uneseno username vec postoji!", "Greska", JOptionPane.ERROR_MESSAGE);
+							a = true;
 							break;
 						}
 					}
@@ -167,6 +168,10 @@ public class RegistracijaProzor extends JFrame{
 					JOptionPane.showMessageDialog(null, "Pogresna lozinka!", "Greska", JOptionPane.ERROR_MESSAGE);
 					passwordField.setText("");
 					passwordConField.setText("");
+				}
+				else if(a)
+				{
+					
 				}
 				else {
 					//setVisible(false);
