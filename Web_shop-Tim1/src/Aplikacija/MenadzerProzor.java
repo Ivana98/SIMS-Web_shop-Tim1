@@ -38,8 +38,9 @@ public class MenadzerProzor extends GlavniProzor {
 		headerPanel.add(cenovnik);
 		headerPanel.add(kuponi);
 		headerPanel.add(izvestaji);
-		headerPanel.add(logoutBtn);
 		headerPanel.add(porudzbineBtn);
+		headerPanel.add(logoutBtn);
+	
 		setVisible(true);
 		izvestaji.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
