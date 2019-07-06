@@ -8,6 +8,7 @@ import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -67,11 +68,12 @@ public class GlavniProzor extends JFrame {
 		// pravljenje primera
 		ArrayList<String> nazivi = new ArrayList<String>();
 		midPanel.removeAll();
-		for (int j = 0; j < Aplikacija.getInstance().getProizvodi().size(); j++) {
-			if (nazivi.contains(Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getNaziv().toLowerCase()))
+		int brojCenovnika = trazenjeCenovnika();
+		for (Proizvod proizvod : Aplikacija.getInstance().getProizvodi().keySet()) {
+			if (nazivi.contains(proizvod.getNaziv()))
 				continue;
-			nazivi.add(Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getNaziv().toLowerCase());
-			dodavanjeDugmetaUMiddlePanelu(j);
+			nazivi.add(proizvod.getNaziv());
+			dodavanjeDugmetaUMiddlePanelu(proizvod,brojCenovnika);
 		}
 		midPanel.repaint();
 		midPanel.revalidate();
@@ -100,7 +102,7 @@ public class GlavniProzor extends JFrame {
 		midPanel.add(proizvod5);
 		midPanel.add(proizvod6);
 
-		proizvod2.addActionListener(new ActionListener() {
+		/*proizvod2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					proizvod2ButtonPressed();
@@ -150,7 +152,7 @@ public class GlavniProzor extends JFrame {
 					e1.printStackTrace();
 				}
 			}
-		});
+		});*/
 
 		facebookBtn.addActionListener(new ActionListener() {
 
@@ -195,11 +197,12 @@ public class GlavniProzor extends JFrame {
 
 		setVisible(true);
 	}
-	public void proizvod0ButtonPressed() throws IOException {
-		ArtikalProzor artPrz0 = new ArtikalProzor();
+	//aktiviranje prozora artikal
+	public void proizvod0ButtonPressed(Proizvod proizvod, float cena) throws IOException {
+		ArtikalProzor artPrz0 = new ArtikalProzor(proizvod,cena);
 	};
 	
-	public void proizvod2ButtonPressed() throws IOException {
+	/*public void proizvod2ButtonPressed() throws IOException {
 		ArtikalProzor artPrz2 = new ArtikalProzor();
 	};
 	
@@ -214,22 +217,22 @@ public class GlavniProzor extends JFrame {
 	};
 	public void proizvod6ButtonPressed() throws IOException{
 		ArtikalProzor artPrz6 = new ArtikalProzor();
-	};
+	};*/
 
 	// metoda za trazenje proizvoda
 	public void trazenje(String trazi) {
 		midPanel.removeAll();
 		ArrayList<String> nazivi = new ArrayList<String>();
-
-		int brojProdavnica = Aplikacija.getInstance().getProdavnica().size();
-		for (int j = 0; j < Aplikacija.getInstance().getProizvodi().size(); j++) {
-			if (Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getNaziv().toLowerCase()
+		
+		int brojCenovnika = trazenjeCenovnika();
+		for (Proizvod proizvod : Aplikacija.getInstance().getProizvodi().keySet()) {
+			if (proizvod.getNaziv().toLowerCase()
 					.contains(trazi.toLowerCase())) {
 				if (nazivi.contains(
-						Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getNaziv().toLowerCase()))
+						proizvod.getNaziv().toLowerCase()))
 					continue;
-				nazivi.add(Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getNaziv().toLowerCase());
-				dodavanjeDugmetaUMiddlePanelu(j);
+				nazivi.add(proizvod.getNaziv().toLowerCase());
+				dodavanjeDugmetaUMiddlePanelu(proizvod,brojCenovnika);
 
 			}
 		}
@@ -238,25 +241,45 @@ public class GlavniProzor extends JFrame {
 
 	}
 
-	public void dodavanjeDugmetaUMiddlePanelu(int j) {
+	public void dodavanjeDugmetaUMiddlePanelu(Proizvod proizvod, int brojCenovnika) {
 		ImageIcon icon1 = new ImageIcon(
-				Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getSlikaLokacija());
+				proizvod.getSlikaLokacija().split("\\|")[0]);
 		Image scaled1 = icon1.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
 
-		JButton proizvod0 = new JButton(Aplikacija.getInstance().getProizvodi().get(j).getProizvod().getNaziv(),
+		String naziv = proizvod.getNaziv();
+		
+		float cena = Aplikacija.getInstance().trazenjeNajnovijeCene(proizvod, brojCenovnika);
+		
+		JButton proizvod0 = new JButton("<html>"+proizvod.getNaziv()+"<br />"+"Cena : "+Float.toString(cena)+"</html>",
 				new ImageIcon(scaled1));
-
+		
+		final float pravaCena = cena;
 		midPanel.add(proizvod0);
+		//akcija prenosi proizvod i cenu
 		proizvod0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					proizvod0ButtonPressed();
+					proizvod0ButtonPressed(proizvod, pravaCena);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
+	}
+	
+	public int trazenjeCenovnika()
+	{
+		LocalDateTime najnovijiDatum = LocalDateTime.MIN;
+		int brojCenovnika = 0;
+		for(int x = 0;x<Aplikacija.getInstance().getCenovnik().size();x++)
+		{
+			if(najnovijiDatum.isBefore(Aplikacija.getInstance().getCenovnik().get(x).getVaziOdDatuma())) {
+				najnovijiDatum = Aplikacija.getInstance().getCenovnik().get(x).getVaziOdDatuma();
+				brojCenovnika = Aplikacija.getInstance().getCenovnik().get(x).getBrojCenovnika();
+			}
+		}
+		return brojCenovnika;
 	}
 
 };

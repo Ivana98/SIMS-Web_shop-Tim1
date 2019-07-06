@@ -50,11 +50,13 @@ public class RegistrovaniKupacProzor extends GlavniProzor{
 			}
 		});
 		
+		int brojCenovnika = trazenjeCenovnika();
+		
 		wishBtn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ListaZeljaProzor lz = new ListaZeljaProzor();
+				ListaZeljaProzor lz = new ListaZeljaProzor(brojCenovnika);
 			}
 			
 	    });
@@ -65,6 +67,23 @@ public class RegistrovaniKupacProzor extends GlavniProzor{
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, "Ovde ce biti prikazana tabela porudzbina sa datumima kada su napravljene.", 
 						"Prozor u izradi", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+	    });
+		
+		logoutBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					NeregistrovaniKupacProzor nr = new NeregistrovaniKupacProzor();
+					Aplikacija.getInstance().setUsername("");
+					setVisible(false);
+					dispose();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 	    });
