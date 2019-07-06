@@ -14,7 +14,7 @@ public class Cenovnik {
 		this.setVaziOdDatuma(null);
 	}
 	
-	public Cenovnik(int brojCenovnika, LocalDateTime vaziOdDatuma, ArrayList<StavkaCenovnika>proizvodi) {
+	public Cenovnik(int brojCenovnika, LocalDateTime vaziOdDatuma) {
 		this.setBrojCenovnika(brojCenovnika);
 		this.setVaziOdDatuma(vaziOdDatuma);
 	}

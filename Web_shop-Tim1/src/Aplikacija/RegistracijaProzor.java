@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,24 +13,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import POJO.Kupon;
+import POJO.Proizvod;
+import POJO.Registrovan_korisnik;
+import POJO.Tip_korisnika;
+
 public class RegistracijaProzor extends JFrame{
-	protected JLabel imeLabel;
-	protected JLabel prezimeLabel;
-	protected JLabel usernameLabel;
-	protected JLabel adresaLabel;
-	protected JLabel telefonLabel;
-	protected JLabel mailLabel;
-	protected JLabel passwordLabel;
-	protected JLabel passwordConfLabel;
-	protected JTextField imeField;
-	protected JTextField prezimeField;
-	protected JTextField usernameField;
-	protected JTextField adresaField;
-	protected JTextField telefonField;
-	protected JTextField mailField;
-	protected JPasswordField passwordField;
-	protected JPasswordField passwordConField;
-	protected JButton registracijaBtn;
 	
 	RegistracijaProzor(){
 		// inicijalizacija osnovnih parametara prozora za registraciju
@@ -40,28 +29,28 @@ public class RegistracijaProzor extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		// inicijalizacija komponenti prozora
-		imeLabel = new JLabel("Ime: ");
-	    prezimeLabel = new JLabel("Prezime: ");
-	    usernameLabel = new JLabel("Korisnicko ime: ");
-	    adresaLabel = new JLabel("Adresa: ");
-	    telefonLabel = new JLabel("Telefon: ");
-	    mailLabel = new JLabel("E-mail adresa: ");
-	    passwordLabel = new JLabel("Unesite lozinku: ");
-	    passwordConfLabel = new JLabel("Potvrdite lozinku: ");
+		JLabel imeLabel = new JLabel("Ime: ");
+	    JLabel prezimeLabel = new JLabel("Prezime: ");
+	    JLabel usernameLabel = new JLabel("Korisnicko ime: ");
+	    JLabel adresaLabel = new JLabel("Adresa: ");
+	    JLabel telefonLabel = new JLabel("Telefon: ");
+	    JLabel mailLabel = new JLabel("E-mail adresa: ");
+	    JLabel passwordLabel = new JLabel("Unesite lozinku: ");
+	    JLabel passwordConfLabel = new JLabel("Potvrdite lozinku: ");
 	    
 	    //adresa username password telefon mail
 	    //porudz-adresa datum id 
 	    
-	    imeField = new JTextField(12);
-	    prezimeField = new JTextField(12);
-	    usernameField = new JTextField(12);
-	    adresaField = new JTextField(20);
-	    telefonField = new JTextField(12);
-	    mailField = new JTextField(20);
-	    passwordField = new JPasswordField(12);
-	    passwordConField = new JPasswordField(12); //polje za  ponavljanje lozinke
+	    JTextField imeField = new JTextField(12);
+	    JTextField prezimeField = new JTextField(12);
+	    JTextField usernameField = new JTextField(12);
+	    JTextField adresaField = new JTextField(20);
+	    JTextField telefonField = new JTextField(12);
+	    JTextField mailField = new JTextField(20);
+	    JPasswordField passwordField = new JPasswordField(12);
+	    JPasswordField passwordConField = new JPasswordField(12); //polje za  ponavljanje lozinke
 	    
-	    registracijaBtn = new JButton("Registruj se!");
+	    JButton registracijaBtn = new JButton("Registruj se!");
 	    
 	    setLayout(new GridBagLayout());
 	    
@@ -156,6 +145,18 @@ public class RegistracijaProzor extends JFrame{
 				String password = String.valueOf(passwordField.getPassword());
 				String passwordCon = String.valueOf(passwordConField.getPassword());
 				
+				// da li vec postoji taj username
+				if (!usernameField.getText().isEmpty()){
+					String username = usernameField.getText();
+					for(int i = 0;i<Aplikacija.getInstance().getKorisnik().size();i++)
+					{
+						if(username.equals(Aplikacija.getInstance().getKorisnik().get(i).getUsername())) {
+							JOptionPane.showMessageDialog(null, "Uneseno username vec postoji!", "Greska", JOptionPane.ERROR_MESSAGE);
+							break;
+						}
+					}
+				}
+				
 				// da li postoji prazno polje
 				if(imeField.getText().isEmpty() || prezimeField.getText().isEmpty() || usernameField.getText().isEmpty() ||
 						adresaField.getText().isEmpty() || telefonField.getText().isEmpty() || mailField.getText().isEmpty() ||
@@ -170,7 +171,14 @@ public class RegistracijaProzor extends JFrame{
 				else {
 					//setVisible(false);
 					//videti kako da zatvorim prozor
+					Aplikacija.getInstance().getKorisnik().add(new Registrovan_korisnik(imeField.getText(), prezimeField.getText(), 
+							adresaField.getText(), telefonField.getText(), mailField.getText(), new ArrayList<Kupon>(), Tip_korisnika.registrovanKorisnik, 
+							usernameField.getText(), String.valueOf(passwordField.getPassword()),new ArrayList<Proizvod>()));
+					
 					JOptionPane.showMessageDialog(null, "Uspesno ste se registrovali.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+					
+					setVisible(false);
+					dispose();
 				}
 			}
 	    	

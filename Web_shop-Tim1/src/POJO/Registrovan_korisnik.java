@@ -15,8 +15,10 @@ public class Registrovan_korisnik extends Korisnik {
 	protected String Username;
 	protected String Password;
 	
+	protected ArrayList<Proizvod>wishlista;
+	
 	public Registrovan_korisnik(String ime, String prezime, String adresa, String telefon, String eMail,
-			ArrayList<Kupon> kupon, Tip_korisnika tipKorisnika, String Username, String Password) {
+			ArrayList<Kupon> kupon, Tip_korisnika tipKorisnika, String Username, String Password, ArrayList<Proizvod>wishlista) {
 		super(ime, prezime);
 		this.setAdresa(adresa);
 		this.setTelefon(telefon);
@@ -25,6 +27,7 @@ public class Registrovan_korisnik extends Korisnik {
 		this.setTipKorisnika(tipKorisnika);
 		this.setUsername(Username);
 		this.setPassword(Password);
+		this.setWishlista(wishlista);
 	}
 	
 	public Registrovan_korisnik() {
@@ -33,9 +36,10 @@ public class Registrovan_korisnik extends Korisnik {
 		this.setTelefon("");
 		this.seteMail("");
 		this.setKupon(new ArrayList<Kupon>());
-		this.setTipKorisnika(Tip_korisnika.registrovanKorisnik);
+		this.setTipKorisnika(Tip_korisnika.administrator);
 		this.setUsername("");
 		this.setPassword("");
+		this.setWishlista(new ArrayList<Proizvod>());
 	}
 	
 	public Registrovan_korisnik(Registrovan_korisnik rk) {
@@ -47,6 +51,7 @@ public class Registrovan_korisnik extends Korisnik {
 		this.setTipKorisnika(rk.getTipKorisnika());
 		this.setUsername(rk.getUsername());
 		this.setPassword(rk.getPassword());
+		this.setWishlista(rk.getWishlista());
 	}
 	
 	@Override
@@ -125,6 +130,14 @@ public class Registrovan_korisnik extends Korisnik {
 
 	public void setPassword(String password) {
 		Password = password;
+	}
+
+	public ArrayList<Proizvod> getWishlista() {
+		return wishlista;
+	}
+
+	public void setWishlista(ArrayList<Proizvod> wishlista) {
+		this.wishlista = wishlista;
 	}
 	
 	
