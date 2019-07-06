@@ -127,7 +127,7 @@ public class StanjaNarudzbenicaProzor extends JFrame {
 
 	public void prvoBtnPressed() {// POZVATI FUNKCIJU SA TRUE
 		// TREBA DODATI IF DA SE OVO POZIVA SAMO AKO JE STANJE NARUDZBENICE MALVERZACIJA
-		// (TJ 1. STANJE)
+		// (TJ 1. STANJE)S
 		
 		// OVO POZOVI PRE ISCRTAVANJA
 		desniPanel.removeAll();
