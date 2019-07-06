@@ -133,7 +133,7 @@ public class StanjaNarudzbenicaProzor extends JFrame {
 		desniPanel.removeAll();
 		desniPanel.repaint();
 		desniPanel.revalidate();
-		
+		 
 		// TREBA DODATI IF ZA ONA 2 POSLEDNJA STANJA
 		// JOptionPane.showMessageDialog(null, "Narudzbenica je u redu!", "Stanje narudzbenice", JOptionPane.INFORMATION_MESSAGE);
 		// JOptionPane.showMessageDialog(null, "Narudzbenica otkazana!", "Stanje narudzbenice", JOptionPane.ERROR_MESSAGE);
