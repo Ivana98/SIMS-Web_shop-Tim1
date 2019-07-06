@@ -111,8 +111,7 @@ public class StanjaNarudzbenicaProzor extends JFrame {
 		desniPanel.add(pitanjeLabela);
 		desniPanel.add(dugmici);
 
-		// TREBA DODATI IF DA SE OVO POZIVA SAMO AKO JE STANJE NARUDZBENICE MALVERZACIJA
-		// (TJ 1. STANJE)
+	
 		prvoBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				prvoBtnPressed();
@@ -127,7 +126,14 @@ public class StanjaNarudzbenicaProzor extends JFrame {
 	}
 
 	public void prvoBtnPressed() {// POZVATI FUNKCIJU SA TRUE
-
+		// TREBA DODATI IF DA SE OVO POZIVA SAMO AKO JE STANJE NARUDZBENICE MALVERZACIJA
+		// (TJ 1. STANJE)
+		
+		// OVO POZOVI PRE ISCRTAVANJA
+		desniPanel.removeAll();
+		desniPanel.repaint();
+		desniPanel.revalidate();
+		
 		// TREBA DODATI IF ZA ONA 2 POSLEDNJA STANJA
 		// JOptionPane.showMessageDialog(null, "Narudzbenica je u redu!", "Stanje narudzbenice", JOptionPane.INFORMATION_MESSAGE);
 		// JOptionPane.showMessageDialog(null, "Narudzbenica otkazana!", "Stanje narudzbenice", JOptionPane.ERROR_MESSAGE);
@@ -135,6 +141,10 @@ public class StanjaNarudzbenicaProzor extends JFrame {
 	}
 
 	public void drugoBtnPressed() {// POZVATI FUNKCIJU SA FALSE
-
+		// TREBA DODATI IF DA SE OVO POZIVA SAMO AKO JE STANJE NARUDZBENICE MALVERZACIJA
+				// (TJ 1. STANJE)
+		desniPanel.removeAll();
+		desniPanel.repaint();
+		desniPanel.revalidate();
 	}
 }
