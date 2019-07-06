@@ -129,7 +129,7 @@ public class StanjaNarudzbenicaProzor extends JFrame {
 		// TREBA DODATI IF DA SE OVO POZIVA SAMO AKO JE STANJE NARUDZBENICE MALVERZACIJA
 		// (TJ 1. STANJE)S
 		
-		// OVO POZOVI PRE ISCRTAVANJA
+		// OVO POZOVI PRE ISCRTAVANJA  
 		desniPanel.removeAll();
 		desniPanel.repaint();
 		desniPanel.revalidate();
