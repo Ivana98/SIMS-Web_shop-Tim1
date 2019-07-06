@@ -2,7 +2,10 @@ package Aplikacija;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -12,6 +15,7 @@ public class IstorijaPorudzbinaProzor extends JFrame{
 	protected String[] imenaKolona;
 	protected Object[][] podaci;
 	protected JScrollPane scrollBar;
+	protected JButton uvidBtn;
 	
 	/* 
 	 * Kako inicijalizovati kolone i podatke
@@ -45,6 +49,16 @@ public class IstorijaPorudzbinaProzor extends JFrame{
 		this.podaci = podaci;
 		initFrame();
 		addComponents();
+		setVisible(true);
+		
+		uvidBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int brojReda = tabelaPorudzbina.getSelectedRow();
+				//pozovi onaj prozor
+				StanjaNarudzbenicaProzor stp = new StanjaNarudzbenicaProzor(brojReda);
+				//System.out.println(brojReda);
+			}
+		});
 	}
 	
 	public void initFrame() {
@@ -61,11 +75,13 @@ public class IstorijaPorudzbinaProzor extends JFrame{
 		tabelaPorudzbina.setFillsViewportHeight(true);
 		
 		scrollBar = new JScrollPane(tabelaPorudzbina);
+		uvidBtn = new JButton("Uvid u porudzbinu");
 		
 	}
 	
 	public void addComponents() {
 		add(scrollBar);
+		add(uvidBtn);
 	}
 	
 	public String[] getImenaKolona() {
