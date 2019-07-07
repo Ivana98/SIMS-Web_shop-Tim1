@@ -101,66 +101,74 @@ public class DesniPanel extends JPanel implements UpdateListener {
 		});
 	}
 
-	public void prvoBtnPressed() {// POZVATI FUNKCIJU SA TRUE
-		// TREBA DODATI IF DA SE OVO POZIVA SAMO AKO JE STANJE NARUDZBENICE MALVERZACIJA
-		// (TJ 1. STANJE)S
+	public void prvoBtnPressed() {
 		if (narudzbenica.getTekuceStanje() instanceof Porucivanje) {
+			System.out.println("USAO");
 			narudzbenica.zavrsenaKupovina();
 		} else if (narudzbenica.getTekuceStanje() instanceof Obradjivanje) {
 			narudzbenica.proveraLagera();
 		} else if (narudzbenica.getTekuceStanje() instanceof Slanje) {
 			narudzbenica.posaljiPorudzbinu();
-		} else if (narudzbenica.getTekuceStanje() instanceof Urucivanje ) {
+		} else if (narudzbenica.getTekuceStanje() instanceof Urucivanje) {
 			JOptionPane.showMessageDialog(null, "Narudzbenica je u redu!", "Stanje narudzbenice",
 					JOptionPane.INFORMATION_MESSAGE);
 			this.removeAll();
 			this.repaint();
 			this.revalidate();
-			
-			
+
 		} else if (narudzbenica.getTekuceStanje() instanceof Otkazivanje) {
 			JOptionPane.showMessageDialog(null, "Narudzbenica otkazana!", "Stanje narudzbenice",
 					JOptionPane.ERROR_MESSAGE);
+			narudzbenica.setTekuceStanje(new Otkazivanje(narudzbenica));
+			otkazana();
 		}
-
-		// OVO POZOVI PRE ISCRTAVANJA
-
-		// TREBA DODATI IF ZA ONA 2 POSLEDNJA STANJA
 
 	}
 
-	public void drugoBtnPressed() {// POZVATI FUNKCIJU SA FALSE
-		// TREBA DODATI IF DA SE OVO POZIVA SAMO AKO JE STANJE NARUDZBENICE MALVERZACIJA
-		// (TJ 1. STANJE)
+	public void drugoBtnPressed() {
 		if (narudzbenica.getTekuceStanje() instanceof Porucivanje) {
 			JOptionPane.showMessageDialog(null, "Narudzbenica otkazana!", "Stanje narudzbenice",
 					JOptionPane.ERROR_MESSAGE);
 			narudzbenica.setTekuceStanje(new Otkazivanje(narudzbenica));
+			otkazana();
 		} else if (narudzbenica.getTekuceStanje() instanceof Obradjivanje) {
 			JOptionPane.showMessageDialog(null, "Narudzbenica otkazana!", "Stanje narudzbenice",
 					JOptionPane.ERROR_MESSAGE);
 			narudzbenica.setTekuceStanje(new Otkazivanje(narudzbenica));
+			otkazana();
 		} else if (narudzbenica.getTekuceStanje() instanceof Slanje) {
 			JOptionPane.showMessageDialog(null, "Problem u transportu, narucite ponovo!", "Stanje narudzbenice",
 					JOptionPane.ERROR_MESSAGE);
 			narudzbenica.problemiUTransportu();
 			narudzbenica.setTekuceStanje(new Otkazivanje(narudzbenica));
+			otkazana();
 		} else if (narudzbenica.getTekuceStanje() instanceof Urucivanje) {
-			
+
 			JOptionPane.showMessageDialog(null, "Narudzbenica otkazana!", "Stanje narudzbenice",
 					JOptionPane.ERROR_MESSAGE);
 			narudzbenica.setTekuceStanje(new Otkazivanje(narudzbenica));
 			narudzbenica.krajPorudzbine();
-			//System.out.println(narudzbenica.getTekuceStanje());
+			otkazana();
+			// System.out.println(narudzbenica.getTekuceStanje());
 		}
 
+	}
+
+	public void otkazana() {
+		if (narudzbenica.isNoviPokusaj()) {
+			narudzbenica.setTekuceStanje(new Porucivanje(narudzbenica));
+			narudzbenica.krajPorudzbine();
+			System.out.println(narudzbenica.getTekuceStanje());
+		} else {
+			JOptionPane.showMessageDialog(null, "Nema dovoljno proizvoda na stanju!", "Stanje narudzbenice",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	public void updatePerformed(UpdateEvent e) {
 
 		System.out.println(e.getStanje());
 		if (narudzbenica.getTekuceStanje() instanceof Obradjivanje) {
-			//System.out.println("RADi");
 			dodajUPanel(2, "DA", "NE", "<html> Proveri da li ima na lageru? </html>", narudzbenica);
 		}
 		if (narudzbenica.getTekuceStanje() instanceof Slanje) {
@@ -169,16 +177,8 @@ public class DesniPanel extends JPanel implements UpdateListener {
 		if (narudzbenica.getTekuceStanje() instanceof Urucivanje) {
 			dodajUPanel(2, "DA", "NE", "<html> Da li narudzbina urucena? </html>", narudzbenica);
 		}
-		if (narudzbenica.getTekuceStanje() instanceof Otkazivanje) {
-			if(narudzbenica.isNoviPokusaj()) {
-				narudzbenica.setTekuceStanje(new Porucivanje(narudzbenica));
-				System.out.println(narudzbenica.getTekuceStanje());
-			}else {
-				JOptionPane.showMessageDialog(null, "Nema dovoljno proizvoda na stanju!", "Stanje narudzbenice",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		}
-		if(narudzbenica.getTekuceStanje() instanceof Porucivanje) {
+
+		if (narudzbenica.getTekuceStanje() instanceof Porucivanje) {
 			dodajUPanel(2, "DA", "NE",
 					"<html> Posto ima dovoljno na stanju <br> da li zelite da porucite ponovo??</html>", narudzbenica);
 		}
