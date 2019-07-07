@@ -30,7 +30,6 @@ public class MenadzerProzor extends GlavniProzor {
 		JButton cenovnik = new JButton("Cenovnik");
 		JButton kuponi = new JButton("Kuponi");
 		JButton dodajArtikal = new JButton("Dodaj artikal");
-		JButton porudzbineBtn = new JButton("Porudzbine");
 
 		headerPanel.setLayout(new FlowLayout());
 		headerPanel.add(dodajArtikal);
@@ -38,9 +37,7 @@ public class MenadzerProzor extends GlavniProzor {
 		headerPanel.add(cenovnik);
 		headerPanel.add(kuponi);
 		headerPanel.add(izvestaji);
-		headerPanel.add(porudzbineBtn);
 		headerPanel.add(logoutBtn);
-	
 		setVisible(true);
 		izvestaji.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -62,12 +59,6 @@ public class MenadzerProzor extends GlavniProzor {
 		dodajArtikal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dodajArtikalButtonPressed();
-			}
-		});
-		
-		porudzbineBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				porudzbineButtonPressed();
 			}
 		});
 
@@ -338,14 +329,6 @@ public class MenadzerProzor extends GlavniProzor {
 		// headerPanel.setAlignmentY(LEFT_ALIGNMENT);
 
 		prozor.add(headerPanel);
-	}
-	
-	public void porudzbineButtonPressed() {
-		String[] imenaKolona = {"Id porudzbine", "Ime", "Prezime", "Adresa", "Datum"};
-		// Videti u istorijaNarudzbenicaProzor kako se popunjava ovo i izvuci podatke
-		Object [][] podaci = {{"7", "Pera", "Peric", "Adresa", "datum"}, {"2", "Marko", "Markovic", 
-			"Adresa", "Datum"}};
-		IstorijaPorudzbinaProzor istorijaP = new IstorijaPorudzbinaProzor(imenaKolona, podaci);
 	}
 
 }

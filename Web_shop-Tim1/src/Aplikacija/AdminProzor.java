@@ -91,7 +91,7 @@ public class AdminProzor extends GlavniProzor {
 
 	public void dodajMenButtonPressed() {
 		JFrame prozor = new JFrame("DODAJ MENADZERA");
-		prozor.setSize(650, 650);
+		prozor.setSize(350, 350);
 		prozor.setLocationRelativeTo(null);
 		prozor.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		prozor.setResizable(true);
@@ -105,17 +105,10 @@ public class AdminProzor extends GlavniProzor {
 		JTextField username = new JTextField(10);
 		JLabel passLabela = new JLabel("Password: ");
 		JTextField password = new JTextField(10);
-		JLabel telefonLabela = new JLabel("Telefon: ");
-		JTextField telefon = new JTextField(10);
-		JLabel emailLabela = new JLabel("E-mail: ");
-		JTextField email = new JTextField(10);
-		JLabel adresaLabela = new JLabel("Adresa: ");
-		JTextField adresa = new JTextField(10);
-		
 		JButton dodajBtn = new JButton("Dodaj menadzera");
-		
+
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(15, 1));
+		panel.setLayout(new GridLayout(10, 1));
 
 		JPanel imePanel = new JPanel();
 		imePanel.add(imeLabela);
@@ -133,19 +126,6 @@ public class AdminProzor extends GlavniProzor {
 		passPanel.add(passLabela);
 		passPanel.add(password);
 
-		JPanel telefonPanel = new JPanel();
-		telefonPanel.add(telefonLabela);
-		telefonPanel.add(telefon);
-		
-		JPanel emailPanel = new JPanel();
-		emailPanel.add(emailLabela);
-		emailPanel.add(email);
-
-		JPanel adresaPanel = new JPanel();
-		adresaPanel.add(adresaLabela);
-		adresaPanel.add(adresa);
-
-		
 		JPanel dugmePanel = new JPanel();
 		dugmePanel.add(dodajBtn);
 
@@ -153,9 +133,6 @@ public class AdminProzor extends GlavniProzor {
 		panel.add(prezimePanel);
 		panel.add(usernamePanel);
 		panel.add(passPanel);
-		panel.add(telefonPanel);
-		panel.add(emailPanel);
-		panel.add(adresaPanel);
 		panel.add(dugmePanel);
 
 		prozor.add(panel);
