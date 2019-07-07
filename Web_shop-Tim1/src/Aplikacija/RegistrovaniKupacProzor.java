@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import POJO.Narudzbenica;
+
 public class RegistrovaniKupacProzor extends GlavniProzor{
 
 	RegistrovaniKupacProzor() throws IOException {
@@ -61,14 +63,27 @@ public class RegistrovaniKupacProzor extends GlavniProzor{
 	    });
 		
 		historyBtn.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Ovde ce biti prikazana tabela porudzbina sa datumima kada su napravljene.", 
-						"Prozor u izradi", JOptionPane.INFORMATION_MESSAGE);
+			public void actionPerformed(ActionEvent e) {
+				String[] imenaKolona = {"Id porudzbine", "Ime", "Prezime", "Adresa", "Datum"};
+				// Videti u istorijaNarudzbenicaProzor kako se popunjava ovo i izvuci podatke
+				int kolikoNarudzbenica = 0;
+				for(Narudzbenica narudzbenica : Aplikacija.getInstance().getNarudzbenice())
+				{
+					if(narudzbenica.getReg_korisnik().getUsername().equals(Aplikacija.getInstance().getUsername()))
+						kolikoNarudzbenica++;
+				}
+				Object podaci[][] = new Object[kolikoNarudzbenica][5];
+				for(int i = 0;i<kolikoNarudzbenica;i++)
+				{
+					podaci[i][0] = Aplikacija.getInstance().getNarudzbenice().get(i).getId()+"";
+					podaci[i][1] =Aplikacija.getInstance().getNarudzbenice().get(i).getIme();
+					podaci[i][2] =Aplikacija.getInstance().getNarudzbenice().get(i).getPrezime();
+					podaci[i][3] =Aplikacija.getInstance().getNarudzbenice().get(i).getAdresa();
+					podaci[i][4] =Aplikacija.getInstance().getNarudzbenice().get(i).getDatum()+"";
+				}
+				IstorijaPorudzbinaProzor istorijaP = new IstorijaPorudzbinaProzor(imenaKolona, podaci);
 			}
-			
-	    });
+		});
 		
 		logoutBtn.addActionListener(new ActionListener() {
 

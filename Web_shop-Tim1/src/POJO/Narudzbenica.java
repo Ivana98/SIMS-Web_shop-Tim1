@@ -19,7 +19,7 @@ public class Narudzbenica {
 	
 	public Narudzbenica() {
 		listener =  new ArrayList<UpdateListener>();
-		tekuceStanje = new Kreiranje(this);
+		tekuceStanje = new Porucivanje(this);
 		malverzacija = false;
 		id = 1;
 		ime = "neko";

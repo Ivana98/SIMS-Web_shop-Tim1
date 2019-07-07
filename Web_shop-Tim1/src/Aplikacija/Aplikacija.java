@@ -195,7 +195,9 @@ public class Aplikacija {
 				return narudzbenica;
 			}
 		}
-		return new Narudzbenica();
+		Narudzbenica naru = new Narudzbenica();
+		naru.setTekuceStanje(new Kreiranje(naru));
+		return naru;
 	}
 	
 
