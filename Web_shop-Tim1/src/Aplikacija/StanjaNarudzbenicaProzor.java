@@ -59,13 +59,19 @@ public class StanjaNarudzbenicaProzor extends JFrame {
 
 		// idLabela = new JLabel("ID: " + aplikaca.getinstance().getNarudzbenice().get(i).getID());
 		// OVAKO NEKAKO TREBA DA IZLGEDA LABELA
-		idLabela = new JLabel("ID: ");
-		imeLabela = new JLabel("IME: ");
-		prezimeLabela = new JLabel("PREZIME: ");
-		adresaLabela = new JLabel("ADRESA: ");
-		datumLabela = new JLabel("DATUM: ");
+		idLabela = new JLabel("ID: "+ Aplikacija.getInstance().getNarudzbenice().get(0).getId());
+		imeLabela = new JLabel("IME: " + Aplikacija.getInstance().getNarudzbenice().get(0).getIme());
+		prezimeLabela = new JLabel("PREZIME: " + Aplikacija.getInstance().getNarudzbenice().get(0).getPrezime());
+		adresaLabela = new JLabel("ADRESA: " + Aplikacija.getInstance().getNarudzbenice().get(0).getAdresa());
+		datumLabela = new JLabel("DATUM: " + Aplikacija.getInstance().getNarudzbenice().get(0).getDatum());
 		proizvodiBtn = new JButton("PROIZVODI");
-
+		
+		idLabela.setBorder(new CompoundBorder(idLabela.getBorder(), new EmptyBorder(20, 20, 10, 10)));
+		imeLabela.setBorder(new CompoundBorder(imeLabela.getBorder(), new EmptyBorder(20, 20, 10, 10)));
+		prezimeLabela.setBorder(new CompoundBorder(prezimeLabela.getBorder(), new EmptyBorder(20, 20, 10, 10)));
+		adresaLabela.setBorder(new CompoundBorder(adresaLabela.getBorder(), new EmptyBorder(20, 20, 10, 10)));
+		datumLabela.setBorder(new CompoundBorder(datumLabela.getBorder(), new EmptyBorder(20, 20, 10, 10)));
+		
 		JPanel dugmePanel = new JPanel();
 		dugmePanel.setBackground(Color.decode("#BDD8EE"));
 		dugmePanel.add(proizvodiBtn);
