@@ -103,7 +103,6 @@ public class DesniPanel extends JPanel implements UpdateListener {
 
 	public void prvoBtnPressed() {
 		if (narudzbenica.getTekuceStanje() instanceof Porucivanje) {
-			System.out.println("USAO");
 			narudzbenica.zavrsenaKupovina();
 		} else if (narudzbenica.getTekuceStanje() instanceof Obradjivanje) {
 			narudzbenica.proveraLagera();
@@ -157,8 +156,11 @@ public class DesniPanel extends JPanel implements UpdateListener {
 	public void otkazana() {
 		if (narudzbenica.isNoviPokusaj()) {
 			narudzbenica.setTekuceStanje(new Porucivanje(narudzbenica));
-			narudzbenica.krajPorudzbine();
-			System.out.println(narudzbenica.getTekuceStanje());
+			narudzbenica.zavrsenaKupovina();
+			narudzbenica.setMalverzacija(false);
+			narudzbenica.setNoviPokusaj(true);
+			narudzbenica.setZadovoljan(true);
+			//System.out.println(narudzbenica.getTekuceStanje());
 		} else {
 			JOptionPane.showMessageDialog(null, "Nema dovoljno proizvoda na stanju!", "Stanje narudzbenice",
 					JOptionPane.ERROR_MESSAGE);
