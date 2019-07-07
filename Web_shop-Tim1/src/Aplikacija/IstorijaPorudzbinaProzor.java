@@ -10,6 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import POJO.Registrovan_korisnik;
+import POJO.Tip_korisnika;
+
 public class IstorijaPorudzbinaProzor extends JFrame{
 	protected JTable tabelaPorudzbina;
 	protected String[] imenaKolona;
@@ -75,7 +78,10 @@ public class IstorijaPorudzbinaProzor extends JFrame{
 		tabelaPorudzbina.setFillsViewportHeight(true);
 		
 		scrollBar = new JScrollPane(tabelaPorudzbina);
+		Registrovan_korisnik reg = Aplikacija.getInstance().trazenjeKorisnika();
 		uvidBtn = new JButton("Uvid u porudzbinu");
+		if(reg.getTipKorisnika() == Tip_korisnika.registrovanKorisnik)
+			uvidBtn.setVisible(false);
 		
 	}
 	

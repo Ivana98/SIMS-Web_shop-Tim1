@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -66,20 +67,21 @@ public class RegistrovaniKupacProzor extends GlavniProzor{
 			public void actionPerformed(ActionEvent e) {
 				String[] imenaKolona = {"Id porudzbine", "Ime", "Prezime", "Adresa", "Datum"};
 				// Videti u istorijaNarudzbenicaProzor kako se popunjava ovo i izvuci podatke
-				int kolikoNarudzbenica = 0;
+				ArrayList<Narudzbenica>narucio = new ArrayList<Narudzbenica>();
 				for(Narudzbenica narudzbenica : Aplikacija.getInstance().getNarudzbenice())
 				{
-					if(narudzbenica.getReg_korisnik().getUsername().equals(Aplikacija.getInstance().getUsername()))
-						kolikoNarudzbenica++;
+					if(narudzbenica.getReg_korisnik().getUsername().equals(Aplikacija.getInstance().getUsername())) {
+						narucio.add(narudzbenica);
+					}
 				}
-				Object podaci[][] = new Object[kolikoNarudzbenica][5];
-				for(int i = 0;i<kolikoNarudzbenica;i++)
+				Object podaci[][] = new Object[narucio.size()][5];
+				for(int i = 0;i<narucio.size();i++)
 				{
-					podaci[i][0] = Aplikacija.getInstance().getNarudzbenice().get(i).getId()+"";
-					podaci[i][1] =Aplikacija.getInstance().getNarudzbenice().get(i).getIme();
-					podaci[i][2] =Aplikacija.getInstance().getNarudzbenice().get(i).getPrezime();
-					podaci[i][3] =Aplikacija.getInstance().getNarudzbenice().get(i).getAdresa();
-					podaci[i][4] =Aplikacija.getInstance().getNarudzbenice().get(i).getDatum()+"";
+					podaci[i][0] = narucio.get(i).getId()+"";
+					podaci[i][1] =narucio.get(i).getIme();
+					podaci[i][2] =narucio.get(i).getPrezime();
+					podaci[i][3] =narucio.get(i).getAdresa();
+					podaci[i][4] =narucio.get(i).getDatum()+"";
 				}
 				IstorijaPorudzbinaProzor istorijaP = new IstorijaPorudzbinaProzor(imenaKolona, podaci);
 			}
