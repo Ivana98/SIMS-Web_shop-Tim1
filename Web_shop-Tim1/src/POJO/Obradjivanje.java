@@ -24,12 +24,15 @@ public class Obradjivanje extends Stanje{
 	@Override
 	public void proveraLagera() {
 		int ukupno = 0;
-		for(Proizvod p : Aplikacija.getInstance().getMapa().keySet()) {
-			ukupno = Aplikacija.getInstance().ukupnaKolicina(p);//Treba Proizvod
-			if(ukupno <-5) {
+		int smanji = 1;
+		for(Proizvod p : Aplikacija.getInstance().getProizvodi().keySet()) {
+			ukupno = Aplikacija.getInstance().ukupnaKolicina(p)-smanji;//Treba Proizvod
+			if(ukupno < -5) {
 				narudzbenica.azurirajPokusaj(false);
 				narudzbenica.promeniStanje(new Otkazivanje(narudzbenica));
+				return;
 			}
+		
 			
 		}
 		
@@ -38,8 +41,8 @@ public class Obradjivanje extends Stanje{
 			narudzbenica.azurirajPokusaj(true);
 			narudzbenica.promeniStanje(new Slanje(narudzbenica));
 		}*/
-		narudzbenica.azurirajPokusaj(true);
-		narudzbenica.promeniStanje(new Slanje(narudzbenica));
+	narudzbenica.azurirajPokusaj(true);
+	narudzbenica.promeniStanje(new Slanje(narudzbenica));
 		
 	}
 

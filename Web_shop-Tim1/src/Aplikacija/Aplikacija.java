@@ -1,18 +1,15 @@
 package Aplikacija;
 
-import java.awt.Image;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import java.util.Map;
 
 import POJO.Cenovnik;
 import POJO.Kolicina;
-import POJO.Korisnik;
 import POJO.Kupon;
+import POJO.Narudzbenica;
 import POJO.Prodavnica;
 import POJO.Proizvod;
 import POJO.Registrovan_korisnik;
@@ -30,17 +27,20 @@ public class Aplikacija {
 		return instance;
 	}
 	
+
 	protected ArrayList<Kolicina> kolicina;
 	protected HashMap<Proizvod,Integer>proizvodi;
 	protected ArrayList<StavkaCenovnika>ceneProizvoda;
 	protected ArrayList<Prodavnica> prodavnica ;
+	protected ArrayList<Narudzbenica> narudzbenice ;
 	protected ArrayList<Cenovnik> cenovnik ;
 	protected ArrayList<Registrovan_korisnik> korisnik ;
 	protected String username;
 	
 	public Aplikacija(ArrayList<Prodavnica> prodavnica, ArrayList<Cenovnik> cenovnik, ArrayList<Registrovan_korisnik> korisnik, 
-			HashMap<Proizvod,Integer>proizvodi,ArrayList<StavkaCenovnika>ceneProizvoda, String username) {
+			HashMap<Proizvod,Integer>proizvodi,ArrayList<StavkaCenovnika>ceneProizvoda, String username, ArrayList<Narudzbenica>narudzbenice) {
 		this.setProdavnica(prodavnica);
+		this.setNarudzbenice(narudzbenice);
 		this.setCenovnik(cenovnik);
 		this.setKorisnik(korisnik);
 		this.setProizvodi(proizvodi);
@@ -50,6 +50,7 @@ public class Aplikacija {
 	
 	public Aplikacija()
 	{
+		this.setNarudzbenice(new ArrayList<Narudzbenica>());
 		this.setProdavnica(new ArrayList<Prodavnica>());
 		this.setCenovnik(new ArrayList<Cenovnik>());
 		this.setKorisnik(new ArrayList<Registrovan_korisnik>());
@@ -60,6 +61,7 @@ public class Aplikacija {
 	
 	public Aplikacija(Aplikacija a)
 	{
+		this.setNarudzbenice(a.getNarudzbenice());
 		this.setProdavnica(a.getProdavnica());
 		this.setCenovnik(a.getCenovnik());
 		this.setKorisnik(a.getKorisnik());
@@ -68,12 +70,68 @@ public class Aplikacija {
 		this.setUsername(a.getUsername());
 	}
 	
+	public static void main(String args[]) throws IOException
+	{
+		inicijalizacija();
+		//GlavniProzor gp = new GlavniProzor();
+		//NeregistrovaniKupacProzor nkp = new NeregistrovaniKupacProzor();
+		//RegistrovaniKupacProzor rkp = new RegistrovaniKupacProzor();
+		MenadzerProzor mp = new MenadzerProzor();
+		//AdminProzor ap = new AdminProzor();
+	}
+
+	static void inicijalizacija()
+	{
+		//dodati proizvodi radi testiranja
+		
+		Aplikacija.getInstance().getProdavnica().add(new Prodavnica(1, "Titanik", "Cara Lazara1", "01112"));
+		Aplikacija.getInstance().getProdavnica().add(new Prodavnica(2, "Kraus", "Cara Milosa1", "3339"));
+		
+		Aplikacija.getInstance().getProizvodi().put(new Proizvod("Stolica","Materijal : Plastika|Polozaj : Ravan","src/Aplikacija/Stolica.jpg"),20);
+		Aplikacija.getInstance().getProizvodi().put(new Proizvod("Sto","Drvo : Breza|Polozaj : Ravan","src/Aplikacija/sto.jpg"),20);
+		Aplikacija.getInstance().getProizvodi().put(new Proizvod("Pivo","Boja : Zuta","src/Aplikacija/pivo.jpg|src/Aplikacija/pivo2.jpg"),40);
+		Narudzbenica nar = new Narudzbenica();
+		getInstance().getNarudzbenice().add(nar);
+		//System.out.println(nar.getTekuceStanje());
+		
+		//korisnik
+		Aplikacija.getInstance().getKorisnik().add(new Registrovan_korisnik("a", "a", "a", "a", "a", new ArrayList<Kupon>(), Tip_korisnika.registrovanKorisnik, "a", "a",new ArrayList<Proizvod>()));
+		
+		//cenovnik i cene
+		LocalDateTime randomDatum = LocalDateTime.of(2015, 4, 21, 05, 20);
+		LocalDateTime randomDatum2 = LocalDateTime.of(2014, 4, 21, 05, 20);
+		Aplikacija.getInstance().getCenovnik().add(new Cenovnik(0, randomDatum));
+		Aplikacija.getInstance().getCenovnik().add(new Cenovnik(1, randomDatum2));
+		Aplikacija.getInstance().getCeneProizvoda().add(new StavkaCenovnika(50, Aplikacija.getInstance().getCenovnik().get(0), 
+				(Proizvod)Aplikacija.getInstance().getProizvodi().keySet().toArray()[2]));
+		Aplikacija.getInstance().getCeneProizvoda().add(new StavkaCenovnika(100, Aplikacija.getInstance().getCenovnik().get(0), 
+				(Proizvod)Aplikacija.getInstance().getProizvodi().keySet().toArray()[1]));
+		Aplikacija.getInstance().getCeneProizvoda().add(new StavkaCenovnika(500, Aplikacija.getInstance().getCenovnik().get(0), 
+				(Proizvod)Aplikacija.getInstance().getProizvodi().keySet().toArray()[0]));
+	}
+
 	@Override
 	public String toString()
 	{
 		return "";
 	}
 	
+	public ArrayList<Kolicina> getKolicina() {
+		return kolicina;
+	}
+
+	public void setKolicina(ArrayList<Kolicina> kolicina) {
+		this.kolicina = kolicina;
+	}
+
+	public ArrayList<Narudzbenica> getNarudzbenice() {
+		return narudzbenice;
+	}
+
+	public void setNarudzbenice(ArrayList<Narudzbenica> narudzbenice) {
+		this.narudzbenice = narudzbenice;
+	}
+
 	public ArrayList<Prodavnica> getProdavnica() {
 		return prodavnica;
 	}
@@ -117,43 +175,8 @@ public class Aplikacija {
 	}
 
 	
-	public static void main(String args[]) throws IOException
-	{
-		inicijalizacija();
-		//GlavniProzor gp = new GlavniProzor();
-		NeregistrovaniKupacProzor nkp = new NeregistrovaniKupacProzor();
-		//RegistrovaniKupacProzor rkp = new RegistrovaniKupacProzor();
-		//MenadzerProzor mp = new MenadzerProzor();
-		//AdminProzor ap = new AdminProzor();
-	}
 	
-	static void inicijalizacija()
-	{
-		//dodati proizvodi radi testiranja
-		
-		Aplikacija.getInstance().getProdavnica().add(new Prodavnica(1, "Titanik", "Cara Lazara1", "01112"));
-		Aplikacija.getInstance().getProdavnica().add(new Prodavnica(2, "Kraus", "Cara Milosa1", "3339"));
-		
-		Aplikacija.getInstance().getProizvodi().put(new Proizvod("Stolica","Materijal : Plastika|Polozaj : Ravan","src/Aplikacija/Stolica.jpg"),20);
-		Aplikacija.getInstance().getProizvodi().put(new Proizvod("Sto","Drvo : Breza|Polozaj : Ravan","src/Aplikacija/sto.jpg"),20);
-		Aplikacija.getInstance().getProizvodi().put(new Proizvod("Pivo","Boja : Zuta","src/Aplikacija/pivo.jpg|src/Aplikacija/pivo2.jpg"),40);
-		
-		//korisnik
-		Aplikacija.getInstance().getKorisnik().add(new Registrovan_korisnik("a", "a", "a", "a", "a", new ArrayList<Kupon>(), Tip_korisnika.registrovanKorisnik, "a", "a",new ArrayList<Proizvod>()));
-		
-		//cenovnik i cene
-		LocalDateTime randomDatum = LocalDateTime.of(2015, 4, 21, 05, 20);
-		LocalDateTime randomDatum2 = LocalDateTime.of(2014, 4, 21, 05, 20);
-		Aplikacija.getInstance().getCenovnik().add(new Cenovnik(0, randomDatum));
-		Aplikacija.getInstance().getCenovnik().add(new Cenovnik(1, randomDatum2));
-		Aplikacija.getInstance().getCeneProizvoda().add(new StavkaCenovnika(50, Aplikacija.getInstance().getCenovnik().get(0), 
-				(Proizvod)Aplikacija.getInstance().getProizvodi().keySet().toArray()[2]));
-		Aplikacija.getInstance().getCeneProizvoda().add(new StavkaCenovnika(100, Aplikacija.getInstance().getCenovnik().get(0), 
-				(Proizvod)Aplikacija.getInstance().getProizvodi().keySet().toArray()[1]));
-		Aplikacija.getInstance().getCeneProizvoda().add(new StavkaCenovnika(500, Aplikacija.getInstance().getCenovnik().get(0), 
-				(Proizvod)Aplikacija.getInstance().getProizvodi().keySet().toArray()[0]));
-	}
-
+	
 	
 
 	public ArrayList<StavkaCenovnika> getCeneProizvoda() {
@@ -179,5 +202,38 @@ public class Aplikacija {
 	public void setProizvodi(HashMap<Proizvod, Integer> proizvodi) {
 		this.proizvodi = proizvodi;
 	}
-
+	public void ukupnaKolicine() {
+		HashMap<Proizvod , Integer> mapa = new HashMap<Proizvod,Integer>();
+		for(Kolicina k : Aplikacija.getInstance().getKolicina()) {
+			boolean bol = false;
+			
+			for(Map.Entry<Proizvod, Integer> iter : getProizvodi().entrySet()) {
+				if(iter.getKey().equals(k.getProizvod())) {
+					bol = true;
+				}
+			}
+			
+			if(!bol) {
+				 mapa.put(k.getProizvod(), k.getKolicina());
+			}
+			else {
+				mapa.put(k.getProizvod(), mapa.get(k.getProizvod()) + k.getKolicina());
+				
+			}
+		}
+		setProizvodi(mapa);
+		
+	}
+	
+	
+	public int ukupnaKolicina(Proizvod p) {
+		return proizvodi.get(p);
+	}
+	public void izmeni(int kolicina , Proizvod p) {
+		/*if(getMapa().get(p) + kolicina < -5) {
+			return false;
+		}*/
+		proizvodi.put(p, getProizvodi().get(p) + kolicina );
+//		return true;
+	}
 }

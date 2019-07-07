@@ -30,6 +30,7 @@ public class MenadzerProzor extends GlavniProzor {
 		JButton cenovnik = new JButton("Cenovnik");
 		JButton kuponi = new JButton("Kuponi");
 		JButton dodajArtikal = new JButton("Dodaj artikal");
+		JButton porudzbine = new JButton("PORUDZBINE");
 
 		headerPanel.setLayout(new FlowLayout());
 		headerPanel.add(dodajArtikal);
@@ -37,11 +38,18 @@ public class MenadzerProzor extends GlavniProzor {
 		headerPanel.add(cenovnik);
 		headerPanel.add(kuponi);
 		headerPanel.add(izvestaji);
+		headerPanel.add(porudzbine);
 		headerPanel.add(logoutBtn);
 		setVisible(true);
 		izvestaji.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				izvestajiButtonPressed();
+			}
+		});
+
+		porudzbine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				porudzbineButtonPressed();
 			}
 		});
 
@@ -63,6 +71,14 @@ public class MenadzerProzor extends GlavniProzor {
 		});
 
 	}
+
+	public void porudzbineButtonPressed() {
+		String[] imenaKolona = {"Id porudzbine", "Ime", "Prezime", "Adresa", "Datum"};
+		// Videti u istorijaNarudzbenicaProzor kako se popunjava ovo i izvuci podatke
+		Object [][] podaci = {{"7", "Pera", "Peric", "Adresa", "datum"}, {"2", "Marko", "Markovic", 
+			"Adresa", "Datum"}, {Aplikacija.getInstance().getNarudzbenice().get(0).getId()+"",Aplikacija.getInstance().getNarudzbenice().get(0).getIme(),Aplikacija.getInstance().getNarudzbenice().get(0).getPrezime(),Aplikacija.getInstance().getNarudzbenice().get(0).getAdresa(), Aplikacija.getInstance().getNarudzbenice().get(0).getDatum()+""}};
+		IstorijaPorudzbinaProzor istorijaP = new IstorijaPorudzbinaProzor(imenaKolona, podaci);
+	};
 
 	public void dodajArtikalButtonPressed() {
 		JFrame prozor = new JFrame("DODAJ ARTIKAL");
@@ -269,17 +285,17 @@ public class MenadzerProzor extends GlavniProzor {
 
 		JPanel panel = new JPanel();
 		headerPanel.setLayout(new GridLayout(9, 1));
-		
+
 		JPanel idPanel = new JPanel();
 		idPanel.add(idCen);
 		idPanel.add(zaBrisanje);
-		
+
 		JPanel dugmePanel = new JPanel();
 		dugmePanel.add(obrisi);
 
 		panel.add(idPanel);
 		panel.add(dugmePanel);
-		
+
 		prozor.add(panel);
 
 	}

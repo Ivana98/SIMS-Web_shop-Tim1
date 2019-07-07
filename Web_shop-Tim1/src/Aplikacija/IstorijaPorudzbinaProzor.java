@@ -38,7 +38,7 @@ public class IstorijaPorudzbinaProzor extends JFrame{
 		};
 	 */
 
-	IstorijaPorudzbinaProzor() {
+	 IstorijaPorudzbinaProzor() {
 		initFrame();
 		addComponents();
 	}
@@ -55,7 +55,7 @@ public class IstorijaPorudzbinaProzor extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				int brojReda = tabelaPorudzbina.getSelectedRow();
 				//pozovi onaj prozor
-				StanjaNarudzbenicaProzor stp = new StanjaNarudzbenicaProzor(brojReda);
+				StanjaNarudzbenicaProzor stp = new StanjaNarudzbenicaProzor(brojReda, Aplikacija.getInstance().getNarudzbenice().get(0));
 				//System.out.println(brojReda);
 			}
 		});

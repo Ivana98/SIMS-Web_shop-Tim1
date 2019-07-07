@@ -42,7 +42,7 @@ public class Otkazivanje extends Stanje{
 	@Override
 	public void krajPorudzbine() {
 		int ukupno = 0;
-		for(Proizvod p : Aplikacija.getInstance().getMapa().keySet()) {
+		for(Proizvod p : Aplikacija.getInstance().getProizvodi().keySet()) {
 			ukupno = Aplikacija.getInstance().ukupnaKolicina(p);//Treba Proizvod
 			if(ukupno <-5) {
 				//Kraj...
@@ -62,7 +62,7 @@ public class Otkazivanje extends Stanje{
 		
 		int ukupno = 0;
 		boolean b = false;
-		for(Proizvod p : Aplikacija.getInstance().getMapa().keySet()) {
+		for(Proizvod p : Aplikacija.getInstance().getProizvodi().keySet()) {
 			ukupno = Aplikacija.getInstance().ukupnaKolicina(p);//Treba Proizvod
 			if(ukupno < -5) {
 				//narudzbenica.azurirajPokusaj(false);
