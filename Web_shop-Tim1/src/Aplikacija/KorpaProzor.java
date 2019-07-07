@@ -16,9 +16,14 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import POJO.Narudzbenica;
+import POJO.Proizvod;
+import POJO.StavkaNarudzbenice;
+
 public class KorpaProzor extends JFrame{
 
-	KorpaProzor(){
+	KorpaProzor(int broj){
+		int brojCenovnika = broj;
 		setTitle("Moja korpa");
 		setSize(500, 400);
 		setResizable(true);
@@ -30,124 +35,123 @@ public class KorpaProzor extends JFrame{
 		JLabel kolicinaLabel = new JLabel("Kolicina");
 		JLabel ukupnoLabel = new JLabel("Ukupno");
 		JButton poruciBtn = new JButton("Kupovina");
-		JLabel ukupnoCenaLabel = new JLabel("Ukupna cena: 2880 RSD");
+		JLabel ukupnoCenaLabel = new JLabel("");
+		
+		//dodavanje komentara
+		setLayout(new GridBagLayout());	    
+		GridBagConstraints gc = new GridBagConstraints();
+			    
+				//// prvo
+			    
+		gc.anchor = GridBagConstraints.LINE_END;
+		gc.weightx = 0.5;
+		gc.weighty = 0.5;
+			    
+		gc.gridx = 0;
+		gc.gridy = 0;
+		add(nazivLabel, gc);
+			    
+		gc.gridx = 2;
+		gc.gridy = 0;
+		add(cenaLabel, gc);
+			    
+		gc.gridx = 3;
+		gc.gridy = 0;
+		add(kolicinaLabel, gc);
+			    
+		gc.anchor = GridBagConstraints.BELOW_BASELINE;
+		gc.gridx = 4;
+		gc.gridy = 0;
+		add(ukupnoLabel, gc);
 		
 		//komponente proizvoda
-		ImageIcon icon = new ImageIcon("src/Aplikacija/proizvod.png");
-		Image scaledImg = icon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-		
-		JLabel slika1 = new JLabel(new ImageIcon(scaledImg));
-		JLabel naziv1 = new JLabel("Proizvod 3");
-		JLabel cena1 = new JLabel("790");
-		SpinnerModel vrednost1 =  new SpinnerNumberModel(1, 0, 10, 1);
-		JSpinner kolicina1 = new JSpinner(vrednost1);
-		JLabel ukupno1 = new JLabel("790 RSD");
-		
-		JLabel slika2 = new JLabel(new ImageIcon(scaledImg));
-		JLabel naziv2 = new JLabel("Proizvod 1");
-		JLabel cena2 = new JLabel("990");
-		SpinnerModel vrednost2 =  new SpinnerNumberModel(1, 0, 10, 1);
-		JSpinner kolicina2 = new JSpinner(vrednost2);
-		JLabel ukupno2 = new JLabel("990 RSD");
-		
-		JLabel slika3 = new JLabel(new ImageIcon(scaledImg));
-		JLabel naziv3 = new JLabel("Proizvod 4");
-		JLabel cena3 = new JLabel("1100");
-		SpinnerModel vrednost3 =  new SpinnerNumberModel(1, 0, 10, 1);
-		JSpinner kolicina3 = new JSpinner(vrednost3);
-		JLabel ukupno3 = new JLabel("1100 RSD");
-		
-		//dodavanje komponenata
-		
-		setLayout(new GridBagLayout());	    
-	    GridBagConstraints gc = new GridBagConstraints();
+	    int i = 1;
+	    Narudzbenica narudzbenica = Aplikacija.getInstance().trazenjeNaruzbeniceKojaSePravi();
+	    int x = 0;
+	    for(x = 0;x<Aplikacija.getInstance().getNarudzbenice().size();x++)
+			{
+				if(Aplikacija.getInstance().getNarudzbenice().get(x).equals(narudzbenica))
+				{
+					float sve = 0;
+					for(StavkaNarudzbenice stavka : Aplikacija.getInstance().getNarudzbenice().get(x).getListaNarudzbina())
+					{
+						sve += stavka.getUkupno();
+					}
+					
+					ukupnoCenaLabel.setText("Ukupna cena: "+sve+" RSD");
+					break;
+				}
+			}
 	    
-		//// Prva kolona 
-	    
-	    gc.anchor = GridBagConstraints.LINE_END;
-	    gc.weightx = 0.5;
-	    gc.weighty = 0.5;
-		
-	    gc.gridx = 0;
-	    gc.gridy = 0;
-	    add(nazivLabel, gc);
-	    
-	    gc.gridx = 0;
-	    gc.gridy = 1;
-	    add(slika1, gc);
-	    
-	    gc.gridx = 0;
-	    gc.gridy = 2;
-	    add(slika2, gc);
-	    
-	    gc.gridx = 0;
-	    gc.gridy = 3;
-	    add(slika3, gc);
-	    
-	    //// Druga kolona
-	    gc.gridx = 1;
-	    gc.gridy = 1;
-	    add(naziv1, gc);
-	    
-	    gc.gridx = 1;
-	    gc.gridy = 2;
-	    add(naziv2, gc);
-	    
-	    gc.gridx = 1;
-	    gc.gridy = 3;
-	    add(naziv3, gc);
-	    
-	    //// Treca kolona
-	    gc.gridx = 2;
-	    gc.gridy = 0;
-	    add(cenaLabel, gc);
-	    
-	    gc.gridx = 2;
-	    gc.gridy = 1;
-	    add(cena1, gc);
-	    
-	    gc.gridx = 2;
-	    gc.gridy = 2;
-	    add(cena2, gc);
-	    
-	    gc.gridx = 2;
-	    gc.gridy = 3;
-	    add(cena3, gc);
-	    
-	    ////Cetvrta kolona
-	    gc.gridx = 3;
-	    gc.gridy = 0;
-	    add(kolicinaLabel, gc);
-	    
-	    gc.gridx = 3;
-	    gc.gridy = 1;
-	    add(kolicina1, gc);
-	    
-	    gc.gridx = 3;
-	    gc.gridy = 2;
-	    add(kolicina2, gc);
-	    
-	    gc.gridx = 3;
-	    gc.gridy = 3;
-	    add(kolicina3, gc);
-	    
-	    //// Peta kolona
-	    gc.anchor = GridBagConstraints.BELOW_BASELINE;
-	    gc.gridx = 4;
-	    gc.gridy = 0;
-	    add(ukupnoLabel, gc);
-	    
-	    gc.gridx = 4;
-	    gc.gridy = 1;
-	    add(ukupno1, gc);
-	    
-	    gc.gridx = 4;
-	    gc.gridy = 2;
-	    add(ukupno2, gc);
-	    
-	    gc.gridx = 4;
-	    gc.gridy = 3;
-	    add(ukupno3, gc);
+	    int yy = -1;
+		for(StavkaNarudzbenice stavkaNarudzbenice : narudzbenica.getListaNarudzbina())
+		{
+			yy++;
+			ImageIcon icon = new ImageIcon(stavkaNarudzbenice.getProizvod().getSlikaLokacija().split("\\|")[0]);
+			Image scaledImg = icon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+			
+			JLabel slika1 = new JLabel(new ImageIcon(scaledImg));
+			JLabel naziv1 = new JLabel(stavkaNarudzbenice.getProizvod().getNaziv());
+			
+			//trazenje csene
+			float cena =Aplikacija.getInstance().trazenjeNajnovijeCene(stavkaNarudzbenice.getProizvod(), brojCenovnika);
+			
+			JLabel cena1 = new JLabel(Float.toString(cena));
+			int kolicina = Aplikacija.getInstance().getProizvodi().get(stavkaNarudzbenice.getProizvod());
+			int pocinje = stavkaNarudzbenice.getNarucenaKolicina();
+			SpinnerModel vrednost1 =  new SpinnerNumberModel(pocinje, 0, kolicina, 1);
+			JSpinner kolicina1 = new JSpinner(vrednost1);
+			JLabel ukupno1 = new JLabel(Float.toString(cena * pocinje));
+			
+			gc.gridx = 0;
+		    gc.gridy = i;
+		    add(slika1, gc);
+		    
+		    gc.gridx = 1;
+		    gc.gridy = i;
+		    add(naziv1, gc);
+			
+		    gc.gridx = 2;
+		    gc.gridy = i;
+		    add(cena1, gc);
+		    
+		    gc.gridx = 3;
+		    gc.gridy = i;
+		    add(kolicina1, gc);
+		    
+		    gc.gridx = 4;
+		    gc.gridy = i;
+		    add(ukupno1, gc);
+		    
+		    final int lokacijaPozicijeListeProizvoda = yy;
+		    kolicina1.addChangeListener(new ChangeListener() {  
+		        public void stateChanged(ChangeEvent e) { 
+		        	// izracunavanje cena* br. komada
+		        	int a = (int) kolicina1.getValue();
+		        	float c1 = Float.parseFloat(cena1.getText()) * a;
+		        	ukupno1.setText(c1 + " RSD"); 
+		        	
+		        	 for(int x = 0;x<Aplikacija.getInstance().getNarudzbenice().size();x++)
+		 			{
+		 				if(Aplikacija.getInstance().getNarudzbenice().get(x).equals(narudzbenica))
+		 				{
+		 					Aplikacija.getInstance().getNarudzbenice().get(x).getListaNarudzbina().get(lokacijaPozicijeListeProizvoda).setNarucenaKolicina(a);
+		 					Aplikacija.getInstance().getNarudzbenice().get(x).getListaNarudzbina().get(lokacijaPozicijeListeProizvoda).setUkupno(c1);
+		 					
+		 					float sve = 0;
+		 					for(StavkaNarudzbenice stavka : Aplikacija.getInstance().getNarudzbenice().get(x).getListaNarudzbina())
+		 					{
+		 						sve += stavka.getUkupno();
+		 					}
+		 					
+		 					ukupnoCenaLabel.setText("Ukupna cena: "+sve+" RSD");
+		 				}
+		 			}
+		        	
+		        }  
+		     });
+		    i++;
+		}
 	    
 	    //// Poslednji red 
 	    gc.weighty = 10;
@@ -162,53 +166,14 @@ public class KorpaProzor extends JFrame{
 	    gc.gridy = 5;
 	    add(poruciBtn, gc);
 	    
-	    kolicina1.addChangeListener(new ChangeListener() {  
-	        public void stateChanged(ChangeEvent e) { 
-	        	// izracunavanje cena* br. komada
-	        	int c1 = (int)kolicina1.getValue() * Integer.parseInt(cena1.getText());
-	        	ukupno1.setText(c1 + " RSD"); 
-	        	
-	        	int c2 = (int)kolicina2.getValue() * Integer.parseInt(cena2.getText());
-	        	int c3 = (int)kolicina3.getValue() * Integer.parseInt(cena3.getText());
-	        	int sve = c1 + c2 + c3;
-	        	//azuriranje donje cene
-	        	ukupnoCenaLabel.setText(sve + " RSD");
-	        }  
-	     });  
-	    
-	    kolicina2.addChangeListener(new ChangeListener() {  
-	        public void stateChanged(ChangeEvent e) { 
-	        	// izracunavanje cena* br. komada
-	        	int c2 = (int)kolicina2.getValue() * Integer.parseInt(cena2.getText());
-	        	ukupno2.setText(c2 + " RSD"); 
-	        	
-	        	int c1 = (int)kolicina1.getValue() * Integer.parseInt(cena1.getText());
-	        	int c3 = (int)kolicina3.getValue() * Integer.parseInt(cena3.getText());
-	        	int sve = c1 + c2 + c3;
-	        	//azuriranje donje cene
-	        	ukupnoCenaLabel.setText(sve + " RSD");
-	        }  
-	     }); 
-	    
-	    kolicina3.addChangeListener(new ChangeListener() {  
-	        public void stateChanged(ChangeEvent e) { 
-	        	// izracunavanje cena* br. komada
-	        	int c3 = (int)kolicina3.getValue() * Integer.parseInt(cena3.getText());
-	        	ukupno3.setText(c3 + " RSD"); 
-	        	
-	        	int c2 = (int)kolicina2.getValue() * Integer.parseInt(cena2.getText());
-	        	int c1 = (int)kolicina1.getValue() * Integer.parseInt(cena1.getText());
-	        	int sve = c1 + c2 + c3;
-	        	//azuriranje donje cene
-	        	ukupnoCenaLabel.setText(sve + " RSD");
-	        }  
-	     }); 
-	    
+	    final int lokacijaNarudzbenice = x;
 	    poruciBtn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				NarudzbenicaProzor np = new NarudzbenicaProzor();
+				NarudzbenicaProzor np = new NarudzbenicaProzor(lokacijaNarudzbenice);
+				setVisible(false);
+				dispose();
 			}
 	    	
 	    });

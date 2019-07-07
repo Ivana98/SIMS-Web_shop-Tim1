@@ -1,6 +1,7 @@
 package POJO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Narudzbenica {
@@ -12,11 +13,13 @@ public class Narudzbenica {
 	private int id;
 	private String prezime;
 	private String adresa;
-	private LocalDate datum;
+	private LocalDateTime datum;
+	private ArrayList<StavkaNarudzbenice>listaNarudzbina;
+	private Registrovan_korisnik reg_korisnik;
 	
 	public Narudzbenica() {
 		listener =  new ArrayList<UpdateListener>();
-		tekuceStanje = new Porucivanje(this);
+		tekuceStanje = new Kreiranje(this);
 		malverzacija = false;
 		id = 1;
 		ime = "neko";
@@ -25,6 +28,8 @@ public class Narudzbenica {
 		adresa = "NEKA";
 		noviPokusaj = true;
 		zadovoljan = true;
+		listaNarudzbina = new ArrayList<StavkaNarudzbenice>();
+		reg_korisnik = new Registrovan_korisnik();
 	}
 	
 	public int getId() {
@@ -75,13 +80,13 @@ public class Narudzbenica {
 
 
 
-	public LocalDate getDatum() {
+	public LocalDateTime getDatum() {
 		return datum;
 	}
 
 
 
-	public void setDatum(LocalDate datum) {
+	public void setDatum(LocalDateTime datum) {
 		this.datum = datum;
 	}
 
@@ -224,5 +229,25 @@ public class Narudzbenica {
 	public boolean porudzbinaURedu() {//Treba parametar ali videcemo
 		return true;
 	}
+
+	
+
+	public Registrovan_korisnik getReg_korisnik() {
+		return reg_korisnik;
+	}
+
+	public void setReg_korisnik(Registrovan_korisnik reg_korisnik) {
+		this.reg_korisnik = reg_korisnik;
+	}
+
+	public ArrayList<StavkaNarudzbenice> getListaNarudzbina() {
+		return listaNarudzbina;
+	}
+
+	public void setListaNarudzbina(ArrayList<StavkaNarudzbenice> listaNarudzbina) {
+		this.listaNarudzbina = listaNarudzbina;
+	}
+
+	
 	
 }

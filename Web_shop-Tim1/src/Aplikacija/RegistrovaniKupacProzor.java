@@ -33,11 +33,12 @@ public class RegistrovaniKupacProzor extends GlavniProzor{
 		headerPanel.add(searchBtn);
 		headerPanel.add(logoutBtn);
 		
+		int brojCenovnika = trazenjeCenovnika();
 		cartBtn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				KorpaProzor kp = new KorpaProzor();
+				KorpaProzor kp = new KorpaProzor(brojCenovnika);
 			}
 			
 	    });
@@ -49,8 +50,6 @@ public class RegistrovaniKupacProzor extends GlavniProzor{
 				trazenje(trazi);
 			}
 		});
-		
-		int brojCenovnika = trazenjeCenovnika();
 		
 		wishBtn.addActionListener(new ActionListener() {
 

@@ -52,6 +52,23 @@ public class MenadzerProzor extends GlavniProzor {
 				porudzbineButtonPressed();
 			}
 		});
+		
+		logoutBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					NeregistrovaniKupacProzor nr = new NeregistrovaniKupacProzor();
+					Aplikacija.getInstance().setUsername("");
+					setVisible(false);
+					dispose();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+	    });
 
 		cenovnik.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

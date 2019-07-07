@@ -8,6 +8,7 @@ import java.util.Map;
 
 import POJO.Cenovnik;
 import POJO.Kolicina;
+import POJO.Kreiranje;
 import POJO.Kupon;
 import POJO.Narudzbenica;
 import POJO.Prodavnica;
@@ -74,9 +75,9 @@ public class Aplikacija {
 	{
 		inicijalizacija();
 		//GlavniProzor gp = new GlavniProzor();
-		//NeregistrovaniKupacProzor nkp = new NeregistrovaniKupacProzor();
+		NeregistrovaniKupacProzor nkp = new NeregistrovaniKupacProzor();
 		//RegistrovaniKupacProzor rkp = new RegistrovaniKupacProzor();
-		MenadzerProzor mp = new MenadzerProzor();
+		//MenadzerProzor mp = new MenadzerProzor();
 		//AdminProzor ap = new AdminProzor();
 	}
 
@@ -96,6 +97,7 @@ public class Aplikacija {
 		
 		//korisnik
 		Aplikacija.getInstance().getKorisnik().add(new Registrovan_korisnik("a", "a", "a", "a", "a", new ArrayList<Kupon>(), Tip_korisnika.registrovanKorisnik, "a", "a",new ArrayList<Proizvod>()));
+		Aplikacija.getInstance().getKorisnik().add(new Registrovan_korisnik("m", "m", "m", "m", "m", new ArrayList<Kupon>(), Tip_korisnika.menadzer, "m", "m",new ArrayList<Proizvod>()));
 		
 		//cenovnik i cene
 		LocalDateTime randomDatum = LocalDateTime.of(2015, 4, 21, 05, 20);
@@ -174,9 +176,27 @@ public class Aplikacija {
 		return cena;
 	}
 
-	
-	
-	
+	public Registrovan_korisnik trazenjeKorisnika()
+	{
+		for(int i=0;i<Aplikacija.getInstance().getKorisnik().size();i++)
+		{
+			if(Aplikacija.getInstance().getKorisnik().get(i).getUsername().equals(Aplikacija.getInstance().getUsername()))
+				return Aplikacija.getInstance().getKorisnik().get(i);
+		}
+		return new Registrovan_korisnik();
+	}
+	//
+	public Narudzbenica trazenjeNaruzbeniceKojaSePravi()
+	{
+		for(Narudzbenica narudzbenica : Aplikacija.getInstance().getNarudzbenice())
+		{
+			if(narudzbenica.getReg_korisnik().getUsername().equals(Aplikacija.getInstance().getUsername()) && narudzbenica.getTekuceStanje() instanceof Kreiranje)
+			{
+				return narudzbenica;
+			}
+		}
+		return new Narudzbenica();
+	}
 	
 
 	public ArrayList<StavkaCenovnika> getCeneProizvoda() {

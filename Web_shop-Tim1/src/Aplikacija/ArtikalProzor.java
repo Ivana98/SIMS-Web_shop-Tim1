@@ -28,8 +28,10 @@ import javax.swing.SwingConstants;
 
 import POJO.Kolicina;
 import POJO.Korisnik;
+import POJO.Narudzbenica;
 import POJO.Proizvod;
 import POJO.Registrovan_korisnik;
+import POJO.StavkaNarudzbenice;
 import POJO.Tip_korisnika;
 
 public class ArtikalProzor extends JFrame {
@@ -103,8 +105,64 @@ public class ArtikalProzor extends JFrame {
 		opisPanel.add(spinnerPanel);
 		JPanel dugmePanel = new JPanel();
 		dugmePanel.setLayout(new FlowLayout());
-		dugmePanel.add(dodajBtn);
-		dugmePanel.add(Box.createHorizontalStrut(30));
+		
+		Narudzbenica narudzbemica = Aplikacija.getInstance().trazenjeNaruzbeniceKojaSePravi();
+		
+		boolean sadrziProizvod = false;
+		for(StavkaNarudzbenice p : narudzbemica.getListaNarudzbina())
+		{
+			if(p.getProizvod().equals(proizvod))
+				sadrziProizvod = true;
+		}
+		//dodavanje u korpu
+		if(sadrziProizvod)
+		{
+			JLabel ispis = new JLabel("Vec ste uzeli ovaj proizvod!");
+			dugmePanel.add(ispis);
+			dugmePanel.add(Box.createHorizontalStrut(30));
+		}
+		else {
+			dugmePanel.add(dodajBtn);
+			dugmePanel.add(Box.createHorizontalStrut(30));
+			
+			dodajBtn.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					StavkaNarudzbenice stavka = new StavkaNarudzbenice();
+					stavka.setJedinicnaCena(cena);
+					stavka.setNarucenaKolicina((int)kolicina1.getValue());
+					stavka.setProizvod(proizvod);
+					stavka.setUkupno(cena * stavka.getNarucenaKolicina());
+					
+					if(narudzbemica.getListaNarudzbina().isEmpty())
+					{
+						narudzbemica.getListaNarudzbina().add(stavka);
+						if(Aplikacija.getInstance().getUsername().equals(""))
+							narudzbemica.setReg_korisnik(new Registrovan_korisnik());
+						else
+							narudzbemica.setReg_korisnik(Aplikacija.getInstance().getKorisnik().get(kojiJeKorisnik));
+						Aplikacija.getInstance().getNarudzbenice().add(narudzbemica);
+					}
+					else
+					{
+						for(int i = 0;i<Aplikacija.getInstance().getNarudzbenice().size();i++)
+						{
+							if(Aplikacija.getInstance().getNarudzbenice().get(i).equals(narudzbemica))
+							{
+								Aplikacija.getInstance().getNarudzbenice().get(i).getListaNarudzbina().add(stavka);
+							}
+						}
+					}
+					
+					dodajBtn.setVisible(false);
+					
+				}
+				
+		    });
+			
+			
+		}
 		
 		//wishlista opcije
 		if(!Aplikacija.getInstance().getUsername().equals(""))

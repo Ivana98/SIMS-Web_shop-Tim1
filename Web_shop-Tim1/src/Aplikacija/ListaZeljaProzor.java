@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,9 +17,11 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import POJO.Narudzbenica;
 import POJO.Proizvod;
 import POJO.Registrovan_korisnik;
 import POJO.StavkaCenovnika;
+import POJO.StavkaNarudzbenice;
 
 public class ListaZeljaProzor extends JFrame{
 	
@@ -117,7 +120,86 @@ public class ListaZeljaProzor extends JFrame{
 		    gc.anchor = GridBagConstraints.BELOW_BASELINE;
 		    gc.gridx = 5;
 		    gc.gridy = i;
-		    add(dodajBtn1, gc);
+		    
+		    Registrovan_korisnik korisnik1 = new Registrovan_korisnik();
+			
+			int koji = -1;
+			for(int ii = 0;ii<Aplikacija.getInstance().getKorisnik().size();ii++)
+			{
+				koji++;
+				if(Aplikacija.getInstance().getKorisnik().get(ii).getUsername().equals(Aplikacija.getInstance().getUsername()))
+				{
+					korisnik.equals(Aplikacija.getInstance().getKorisnik().get(ii));
+					break;
+				}
+			}
+			final int kojiJeKorisnik = koji;
+		    
+		    Narudzbenica narudzbemica = Aplikacija.getInstance().trazenjeNaruzbeniceKojaSePravi();
+		    
+		    boolean sadrziProizvod = false;
+			for(StavkaNarudzbenice p : narudzbemica.getListaNarudzbina())
+			{
+				if(p.getProizvod().equals(proizvod))
+					sadrziProizvod = true;
+			}
+			//dodavanje u korpu
+			if(sadrziProizvod)
+			{
+				JLabel ispis = new JLabel("Vec ste uzeli ovaj proizvod!");
+				add(ispis,gc);
+			}
+			else {
+				add(dodajBtn1,gc);
+				
+				dodajBtn1.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						StavkaNarudzbenice stavka = new StavkaNarudzbenice();
+						stavka.setJedinicnaCena(cena);
+						stavka.setNarucenaKolicina((int)kolicina1.getValue());
+						stavka.setProizvod(proizvod);
+						stavka.setUkupno(cena * stavka.getNarucenaKolicina());
+						
+						if(narudzbemica.getListaNarudzbina().isEmpty())
+						{
+							narudzbemica.getListaNarudzbina().add(stavka);
+							if(Aplikacija.getInstance().getUsername().equals(""))
+								narudzbemica.setReg_korisnik(new Registrovan_korisnik());
+							else
+								narudzbemica.setReg_korisnik(Aplikacija.getInstance().getKorisnik().get(kojiJeKorisnik));
+							Aplikacija.getInstance().getNarudzbenice().add(narudzbemica);
+						}
+						else
+						{
+							for(int i = 0;i<Aplikacija.getInstance().getNarudzbenice().size();i++)
+							{
+								if(Aplikacija.getInstance().getNarudzbenice().get(i).equals(narudzbemica))
+								{
+									Aplikacija.getInstance().getNarudzbenice().get(i).getListaNarudzbina().add(stavka);
+								}
+							}
+						}
+						
+						dodajBtn1.setVisible(false);
+						
+					}
+					
+			    });
+				
+				
+			}
+		    
+		    /*add(dodajBtn1, gc);
+		    dodajBtn1.addChangeListener(new ChangeListener() {  
+		        public void stateChanged(ChangeEvent e) { 
+		        	// izracunavanje cena* br. komada
+		        	int a = (int) kolicina1.getValue();
+		        	float c1 = Float.parseFloat(cena1.getText()) * a;
+		        	ukupno1.setText(c1 + " RSD"); 
+		        }  
+		     });*/
 		    
 		    kolicina1.addChangeListener(new ChangeListener() {  
 		        public void stateChanged(ChangeEvent e) { 

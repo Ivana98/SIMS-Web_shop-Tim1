@@ -75,11 +75,13 @@ public class NeregistrovaniKupacProzor extends GlavniProzor {
 			}
 		});
 		
+		int brojCenovnika = trazenjeCenovnika();
+		
 		cartBtn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				KorpaProzor kp = new KorpaProzor();
+				KorpaProzor kp = new KorpaProzor(brojCenovnika);
 			}
 			
 	    });
@@ -97,10 +99,14 @@ public class NeregistrovaniKupacProzor extends GlavniProzor {
 				{
 					if(Aplikacija.getInstance().getKorisnik().get(i).getTipKorisnika() == Tip_korisnika.registrovanKorisnik) {
 						RegistrovaniKupacProzor rk = new RegistrovaniKupacProzor();
-						Aplikacija.getInstance().setUsername(username);
-						setVisible(false);
-						dispose();
 					}
+					else if(Aplikacija.getInstance().getKorisnik().get(i).getTipKorisnika() == Tip_korisnika.menadzer)
+					{
+						MenadzerProzor rk = new MenadzerProzor();
+					}
+					Aplikacija.getInstance().setUsername(username);
+					setVisible(false);
+					dispose();
 				}
 				else
 				{

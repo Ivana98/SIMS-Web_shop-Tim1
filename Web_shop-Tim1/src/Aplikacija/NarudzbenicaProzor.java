@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import POJO.Porucivanje;
 
 public class NarudzbenicaProzor extends JFrame{
 
@@ -25,7 +28,7 @@ public class NarudzbenicaProzor extends JFrame{
 	protected JComboBox placanjeOpcije;
 	protected JButton poruciBtn;
 	
-	NarudzbenicaProzor(){
+	NarudzbenicaProzor(int lokacija){
 		setTitle("Narudzbenica");
 		setSize(400, 200);
 		setResizable(true);
@@ -105,6 +108,8 @@ public class NarudzbenicaProzor extends JFrame{
 	    gc.gridy = 5;
 	    add(poruciBtn, gc);
 	    
+	    final int lokacijaNarudzbenice = lokacija;
+	    
 	    poruciBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -116,8 +121,16 @@ public class NarudzbenicaProzor extends JFrame{
 				else {
 				//setVisible(false);
 				//videti kako da zatvorim prozor
-				JOptionPane.showMessageDialog(null, "Vasa porudzbina je primljena i potrudicemo se da je dostavimo u"
-						+ "najkracem mogucem roku.\nHvala sto kupujete kod nas!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+					Aplikacija.getInstance().getNarudzbenice().get(lokacijaNarudzbenice).setAdresa(adresaField.getText());
+					Aplikacija.getInstance().getNarudzbenice().get(lokacijaNarudzbenice).setId(lokacijaNarudzbenice);
+					Aplikacija.getInstance().getNarudzbenice().get(lokacijaNarudzbenice).setIme(imeField.getText());
+					Aplikacija.getInstance().getNarudzbenice().get(lokacijaNarudzbenice).setPrezime(prezimeField.getText());
+					Aplikacija.getInstance().getNarudzbenice().get(lokacijaNarudzbenice).setDatum(LocalDateTime.now());
+					Aplikacija.getInstance().getNarudzbenice().get(lokacijaNarudzbenice).setTekuceStanje(new Porucivanje(Aplikacija.getInstance().getNarudzbenice().get(lokacijaNarudzbenice)));
+					JOptionPane.showMessageDialog(null, "Vasa porudzbina je primljena i potrudicemo se da je dostavimo u"
+							+ "najkracem mogucem roku.\nHvala sto kupujete kod nas!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+					setVisible(false);
+					dispose();
 				}
 			}
 	    });
